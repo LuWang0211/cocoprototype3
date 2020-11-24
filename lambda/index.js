@@ -137,7 +137,7 @@ const RecordRatingApiHandler = {
 
 
 // RunTryOthers
-const RunTryOthersApiHandler = {
+const TryOthersApiHandler = {
     canHandle(handlerInput) {
         return util.isApiRequest(handlerInput, 'TryOthers');
     },
@@ -275,7 +275,7 @@ const FallbackIntentHandler = {
         // return request.type === 'IntentRequest' && request.intent.name !== 'GetFavoriteColorApiHandler' && request.intent.name !== 'RecordColorApiHandler';
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'Dialog.API.Invoked' && request.apiRequest.name !== 'StartSessionApiHandler' 
                && request.apiRequest.name !== 'PlaySessionAudioeApiHandler'  && request.apiRequest.name !== 'RecordRatingApiHandler'
-               && request.apiRequest.name !== 'ProvideFeedbackApiHandler'  && request.apiRequest.name !== 'RunTryOthersApiHandler';
+               && request.apiRequest.name !== 'ProvideFeedbackApiHandler'  && request.apiRequest.name !== 'TryOthersApiHandler';
     },
     handle(handlerInput) {
         const intentName = handlerInput.requestEnvelope.request.intent.name;
@@ -343,7 +343,7 @@ exports.handler = Alexa.SkillBuilders.custom()
         PlaySessionAudioeApiHandler,
         RecordRatingApiHandler,
         ProvideFeedbackApiHandler,
-        RunTryOthersApiHandler,
+        TryOthersApiHandler,
         FallbackIntentHandler,
         SessionEndedRequestHandler
     )
