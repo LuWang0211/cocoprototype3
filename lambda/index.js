@@ -136,6 +136,25 @@ const RecordRatingApiHandler = {
 }
 
 
+// RunTryOthers
+const RunTryOthersApiHandler = {
+    canHandle(handlerInput) {
+        return util.isApiRequest(handlerInput, 'RunTryOthers');
+    },
+    handle(handlerInput) {
+        console.log("Api Request [RunTryOthers]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
+        let response = {
+            apiResponse: ''
+        };
+
+        console.log("Api Response [RunTryOthers]: ", JSON.stringify(response, null, 2));
+        return response;
+    }
+}
+
+
+
+
 /**
  * API Handler for RecordColor API
  * 
