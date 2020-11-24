@@ -16,6 +16,7 @@
 
 const Alexa     = require('ask-sdk-core');
 const util      = require('./util');
+const process = require('process');
 
 // add firebase
 const firebase = require("firebase");
