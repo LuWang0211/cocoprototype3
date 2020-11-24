@@ -139,15 +139,15 @@ const RecordRatingApiHandler = {
 // RunTryOthers
 const RunTryOthersApiHandler = {
     canHandle(handlerInput) {
-        return util.isApiRequest(handlerInput, 'RunTryOthers');
+        return util.isApiRequest(handlerInput, 'TryOthers');
     },
     handle(handlerInput) {
-        console.log("Api Request [RunTryOthers]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
+        console.log("Api Request [TryOthers]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
         let response = {
             apiResponse: ''
         };
 
-        console.log("Api Response [RunTryOthers]: ", JSON.stringify(response, null, 2));
+        console.log("Api Response [TryOthers]: ", JSON.stringify(response, null, 2));
         return response;
     }
 }
