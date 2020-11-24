@@ -113,12 +113,12 @@ const RecordRatingApiHandler = {
             apiResponse: ''
         };
         console.log("userrating", userrating);
-        if (userrating === 4 || userrating === 5 ){
+        if (userrating === 4 || userrating === 5 || userrating === 'four' || userrating === 'five'){
             console.log("High Rating")
             response = {
                 apiResponse: 'I am glad you like the exercise! Do you want to do it again, try another exercise or end the session?'
             };
-        } else if (userrating === 1 || userrating === 2 || userrating === 3 ) {
+        } else if (userrating === 1 || userrating === 2 || userrating === 3 || userrating === 'one' || userrating === 'two'|| userrating === 'three') {
             console.log("Low Rating")
             response = {
                 apiResponse: 'Hmm, I see you do not like the exercise as much. Would you like to provide some feedback?'
