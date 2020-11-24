@@ -11,6 +11,6 @@
   "dependencies": {
     "ask-sdk-core": "^2.6.0",
     "ask-sdk-model": "^1.18.0",
-    "firebase": "^9.4.1"
+    "firebase": "8.1.1"
   }
 }
