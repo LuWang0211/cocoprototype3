@@ -112,7 +112,7 @@ const RecordRatingApiHandler = {
         let response = {
             apiResponse: ''
         };
-        
+        console.log("userrating", userrating);
         if (userrating === 4 || userrating === 5 ){
             console.log("High Rating")
             response = {
