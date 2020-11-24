@@ -110,7 +110,6 @@ const RecordRatingApiHandler = {
         const userrating = args.userrating;
         console.log('args.userrating', args.userrating);
         
-        
         let response = {
             apiResponse: 0
         };
