@@ -144,7 +144,7 @@ const TryOthersApiHandler = {
     handle(handlerInput) {
         console.log("Api Request [TryOthers]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
         let response = {
-            apiResponse: ''
+            apiResponse: 0
         };
 
         console.log("Api Response [TryOthers]: ", JSON.stringify(response, null, 2));
