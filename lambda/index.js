@@ -110,7 +110,7 @@ const RecordRatingApiHandler = {
         const userrating = args.userrating;
         
         let response = {
-            apiResponse: ''
+            apiResponse: 0
         };
         
         if (userrating == 4 || userrating == 5 ){
