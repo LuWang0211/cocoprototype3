@@ -108,24 +108,26 @@ const RecordRatingApiHandler = {
         // First get our request entity and grab the color passed in the API call
         const args = util.getApiArguments(handlerInput);
         const userrating = args.userrating;
+        console.log('args.userrating', args.userrating);
+        
         
         let response = {
-            apiResponse: ''
+            apiResponse: 0
         };
         
         console.log("userrating", userrating);
         if (userrating === 4 || userrating === 5 || userrating === 'four' || userrating === 'five'){
-            console.log("High Rating")
+            console.log("High Rating");
             response = {
                 apiResponse: 'I am glad you like the exercise! Do you want to do it again, try another exercise or end the session?'
             };
         } else if (userrating === 1 || userrating === 2 || userrating === 3 || userrating === 'one' || userrating === 'two'|| userrating === 'three') {
-            console.log("Low Rating")
+            console.log("Low Rating");
             response = {
                 apiResponse: 'Hmm, I see you do not like the exercise as much. Would you like to provide some feedback?'
             };
         } else {
-            console.log("Out of Rating Range")
+            console.log("Out of Rating Range");
             response = {
                 apiResponse: 'Sorry, please using a number between one to five!'
             };
