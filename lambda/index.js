@@ -116,7 +116,7 @@ const RecordRatingApiHandler = {
         if (userrating === 4 || userrating === 5 ){
             console.log("High Rating")
             response = {
-                apiResponse: 'I am glad you like the exercise! I will recommend similar exercises for you in the future! Anything else I can help with you today?'
+                apiResponse: 'I am glad you like the exercise! Do you want to do it again, try another exercise or end the session?'
             };
         } else if (userrating === 1 || userrating === 2 || userrating === 3 ) {
             console.log("Low Rating")
