@@ -39,16 +39,16 @@ firebase.initializeApp({
  * See https://developer.amazon.com/en-US/docs/alexa/conversations/handle-api-calls.html
  */
  
- // TestingFirebase-write
-const TestingFirebaseApiHandler = {
+  // StartSession
+const StartSessionApiHandler = {
     canHandle(handlerInput) {
-        return util.isApiRequest(handlerInput, 'TestingFirebase');
+        return util.isApiRequest(handlerInput, 'StartSession');
     },
-    async handle(handlerInput) {
-        console.log("Api Request [TestingFirebase]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
+    handle(handlerInput) {
+        console.log("Api Request [StartSession]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
         // First get our request entity and grab the color passed in the API call
         const args = util.getApiArguments(handlerInput);
-        const recordtestingdata = args.recordtestingdata;
+        const InitExercise = args.InitExercise;
         // Store the favorite color in the session
         // const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
         // sessionAttributes.favoriteColor = color;
@@ -56,53 +56,22 @@ const TestingFirebaseApiHandler = {
         let response = {
             apiResponse: 0
         };
-    
-        var db = firebase.database();
-        var ref = db.ref('Alexa');
-        
-        // console.log("db", db);
-        // console.log("ref", ref);
-        const result = await ref.set({
-                                 datatitle: recordtestingdata,
-                                 }); 
-        db.goOffline();
-        
-        console.log("Api Response [TestingFirebase]: ", JSON.stringify(response, null, 2));
-        console.log("Api Result [TestingFirebase]: ", JSON.stringify(result, null, 2));
-        //callback(response, 200);
+
+        console.log("Api Response [StartSession]: ", JSON.stringify(response, null, 2));
         return response;
-        // return result;
     }
 }
 
 
-// TestingFirebase-Reading
-const TestingReadFirebaseApiHandler = {
+// PlaySessionAudio
+const PlaySessionAudioeApiHandler = {
     canHandle(handlerInput) {
-        return util.isApiRequest(handlerInput, 'TestingReadFirebase');
+        return util.isApiRequest(handlerInput, 'PlaySessionAudio');
     },
     async handle(handlerInput) {
-        console.log("Api Request [TestingReadFirebase]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
-
-        // let response = {
-        //     apiResponse: {
-        //         uri: 'https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/elevatording.wav'
-        //     }
-        // };
-    
+        console.log("Api Request [PlaySessionAudio]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
         var db = firebase.database();
         var ref = db.ref('LastRecommendedResource');
-        // const result = new Promise((resolve) => {
-        //     ref.once('value', (dataSnapshot) => {
-        //         db.goOffline();
-        //         dataSnapshot.val();
-        //         try{
-        //             console.log("dataSnapshot.val()",dataSnapshot.val());
-        //         }catch(e){
-        //             console.log("result",e);
-        //         }
-        //     });
-        // });
         
         let response = {
             apiResponse: ''
@@ -122,20 +91,48 @@ const TestingReadFirebaseApiHandler = {
             console.log("get firebase data URI ERROR", e)
         }
 
-        console.log("Api Response [TestingReadFirebase]: ", JSON.stringify(response, null, 2));
-        // console.log("Api Result [TestingReadFirebase]: ", JSON.stringify(result, null, 2));
-        //callback(response, 200);
+        console.log("Api Response [PlaySessionAudio]: ", JSON.stringify(response, null, 2));
         return response;
     }
 }
 
 
-
-
-
-
-
-
+ // RecordRating
+const RecordRatingApiHandler = {
+    canHandle(handlerInput) {
+        return util.isApiRequest(handlerInput, 'RecordRating');
+    },
+    handle(handlerInput) {
+        console.log("Api Request [RecordRating]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
+        // First get our request entity and grab the color passed in the API call
+        const args = util.getApiArguments(handlerInput);
+        const userrating = args.userrating;
+        
+        let response = {
+            apiResponse: ''
+        };
+        
+        if (userrating === 4 || userrating === 5 ){
+            console.log("High Rating")
+            response = {
+                apiResponse: 'Great'
+            };
+        } else if (userrating === 1 || userrating === 2 || userrating === 3 ) {
+            console.log("Low Rating")
+            response = {
+                apiResponse: 'Sorry, You do not like it'
+            };
+        } else {
+            console.log("Out of Rating Range")
+            response = {
+                apiResponse: 'Sorry, please using number between one to five!'
+            };
+        }
+        
+        console.log("Api Response [RecordRating]: ", JSON.stringify(response, null, 2));
+        return response;
+    }
+}
 
 
 
