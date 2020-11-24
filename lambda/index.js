@@ -121,7 +121,7 @@ const RecordRatingApiHandler = {
         } else if (userrating === 1 || userrating === 2 || userrating === 3 ) {
             console.log("Low Rating")
             response = {
-                apiResponse: 'Hmm, I see you did not like the exercise as much. Could you tell me why?'
+                apiResponse: 'Hmm, I see you do not like the exercise as much. Would you like to provide some feedback?'
             };
         } else {
             console.log("Out of Rating Range")
