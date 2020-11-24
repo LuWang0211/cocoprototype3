@@ -116,17 +116,17 @@ const RecordRatingApiHandler = {
         if (userrating === 4 || userrating === 5 ){
             console.log("High Rating")
             response = {
-                apiResponse: 'Great'
+                apiResponse: 'I am glad you like the exercise! I will recommend similar exercises for you in the future! Anything else I can help with you today?'
             };
         } else if (userrating === 1 || userrating === 2 || userrating === 3 ) {
             console.log("Low Rating")
             response = {
-                apiResponse: 'Sorry, You do not like it'
+                apiResponse: 'Hmm, I see you did not like the exercise as much. Could you tell me why by typing in the reason?'
             };
         } else {
             console.log("Out of Rating Range")
             response = {
-                apiResponse: 'Sorry, please using number between one to five!'
+                apiResponse: 'Sorry, please using a number between one to five!'
             };
         }
         
