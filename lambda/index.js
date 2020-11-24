@@ -135,13 +135,6 @@ const RecordRatingApiHandler = {
 }
 
 
-
-
-
-
-
-
-
 /**
  * API Handler for RecordColor API
  * 
@@ -244,12 +237,13 @@ const GetFavoriteColorApiHandler = {
 const FallbackIntentHandler = {
     canHandle(handlerInput) {
         const request = handlerInput.requestEnvelope.request;
-        return request.type === 'IntentRequest' && request.intent.name !== 'GetFavoriteColorApiHandler' && request.intent.name !== 'RecordColorApiHandler';
+        // return request.type === 'IntentRequest' && request.intent.name !== 'GetFavoriteColorApiHandler' && request.intent.name !== 'RecordColorApiHandler';
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'Dialog.API.Invoked' && request.apiRequest.name !== 'StartSessionApiHandler' && request.apiRequest.name !== 'PlaySessionAudioeApiHandler'  && request.apiRequest.name !== 'RecordRatingApiHandler';
     },
     handle(handlerInput) {
         const intentName = handlerInput.requestEnvelope.request.intent.name;
         console.log('In catch all intent handler. Intent invoked: ' + intentName);
-        const speechOutput = "Hmm, I'm not sure. You can tell me your favorite color or ask me what your favorite color is. What would you like to do";
+        const speechOutput = "Hmm, I'm not sure. You can tell me more or What would you like to do!";
 
         return handlerInput.responseBuilder
             .speak(speechOutput)
@@ -305,9 +299,12 @@ exports.handler = Alexa.SkillBuilders.custom()
     .addRequestInterceptors(LogRequestInterceptor)
     .addResponseInterceptors(LogResponseInterceptor)
     .addRequestHandlers(
-        RecordColorApiHandler,
-        GetFavoriteColorApiHandler,
-        IntroToAlexaConversationsButtonEventHandler,
+        // RecordColorApiHandler,
+        // GetFavoriteColorApiHandler,
+        // IntroToAlexaConversationsButtonEventHandler,
+        StartSessionApiHandler,
+        PlaySessionAudioeApiHandler,
+        RecordRatingApiHandler,
         FallbackIntentHandler,
         SessionEndedRequestHandler
     )
