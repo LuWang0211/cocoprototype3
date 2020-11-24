@@ -111,7 +111,7 @@ const RecordRatingApiHandler = {
         console.log('args.userrating', args.userrating);
         
         let response = {
-            apiResponse: 0
+            apiResponse: ''
         };
         
         console.log("userrating", userrating);
