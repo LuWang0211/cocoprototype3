@@ -17,6 +17,134 @@
 const Alexa     = require('ask-sdk-core');
 const util      = require('./util');
 
+// add firebase
+const firebase = require("firebase");
+
+firebase.initializeApp({
+    apiKey: 'AIzaSyAY0F2osDlc9j6P6FQeHRn3y5mOROtbhpg',
+    authDomain: 'cocobot-gix.firebaseapp.com',
+    databaseURL: 'https://cocobot-gix.firebaseio.com',
+    projectId: 'cocobot-gix',
+    storageBucket: 'cocobot-gix.appspot.com',
+    messagingSenderId: '901645805895',
+    appId: '1:901645805895:android:6174bbf516f640c0960462',
+});
+
+/**
+ * API Handler for RecordColor API
+ * 
+ * @param handlerInput
+ * @returns API response object 
+ * 
+ * See https://developer.amazon.com/en-US/docs/alexa/conversations/handle-api-calls.html
+ */
+ 
+ // TestingFirebase-write
+const TestingFirebaseApiHandler = {
+    canHandle(handlerInput) {
+        return util.isApiRequest(handlerInput, 'TestingFirebase');
+    },
+    async handle(handlerInput) {
+        console.log("Api Request [TestingFirebase]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
+        // First get our request entity and grab the color passed in the API call
+        const args = util.getApiArguments(handlerInput);
+        const recordtestingdata = args.recordtestingdata;
+        // Store the favorite color in the session
+        // const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        // sessionAttributes.favoriteColor = color;
+        
+        let response = {
+            apiResponse: 0
+        };
+    
+        var db = firebase.database();
+        var ref = db.ref('Alexa');
+        
+        // console.log("db", db);
+        // console.log("ref", ref);
+        const result = await ref.set({
+                                 datatitle: recordtestingdata,
+                                 }); 
+        db.goOffline();
+        
+        console.log("Api Response [TestingFirebase]: ", JSON.stringify(response, null, 2));
+        console.log("Api Result [TestingFirebase]: ", JSON.stringify(result, null, 2));
+        //callback(response, 200);
+        return response;
+        // return result;
+    }
+}
+
+
+// TestingFirebase-Reading
+const TestingReadFirebaseApiHandler = {
+    canHandle(handlerInput) {
+        return util.isApiRequest(handlerInput, 'TestingReadFirebase');
+    },
+    async handle(handlerInput) {
+        console.log("Api Request [TestingReadFirebase]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
+
+        // let response = {
+        //     apiResponse: {
+        //         uri: 'https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/elevatording.wav'
+        //     }
+        // };
+    
+        var db = firebase.database();
+        var ref = db.ref('LastRecommendedResource');
+        // const result = new Promise((resolve) => {
+        //     ref.once('value', (dataSnapshot) => {
+        //         db.goOffline();
+        //         dataSnapshot.val();
+        //         try{
+        //             console.log("dataSnapshot.val()",dataSnapshot.val());
+        //         }catch(e){
+        //             console.log("result",e);
+        //         }
+        //     });
+        // });
+        
+        let response = {
+            apiResponse: ''
+        };
+        
+        const data_snapshot = await ref.once('value');
+        db.goOffline();
+        const result = data_snapshot.val();
+        console.log("result", result);
+        try{
+            const Uri = result.audiouri;
+            console.log('get firebase data URI', Uri)
+            response = {
+                apiResponse: Uri
+            };
+        }catch(e){
+            console.log("get firebase data URI ERROR", e)
+        }
+
+        console.log("Api Response [TestingReadFirebase]: ", JSON.stringify(response, null, 2));
+        // console.log("Api Result [TestingReadFirebase]: ", JSON.stringify(result, null, 2));
+        //callback(response, 200);
+        return response;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  * API Handler for RecordColor API
  * 
