@@ -301,7 +301,8 @@ const FallbackIntentHandler = {
         // return request.type === 'IntentRequest' && request.intent.name !== 'GetFavoriteColorApiHandler' && request.intent.name !== 'RecordColorApiHandler';
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'Dialog.API.Invoked' && request.apiRequest.name !== 'StartSessionApiHandler' 
                && request.apiRequest.name !== 'PlaySessionAudioeApiHandler'  && request.apiRequest.name !== 'RecordRatingApiHandler'
-               && request.apiRequest.name !== 'ProvideFeedbackApiHandler'  && request.apiRequest.name !== 'TryOthersApiHandler';
+               && request.apiRequest.name !== 'ProvideFeedbackApiHandler'  && request.apiRequest.name !== 'TryOthersApiHandler'
+               && request.apiRequest.name !== 'GetInitialInformationApiHandler';
     },
     handle(handlerInput) {
         const intentName = handlerInput.requestEnvelope.request.intent.name;
@@ -365,6 +366,7 @@ exports.handler = Alexa.SkillBuilders.custom()
         // RecordColorApiHandler,
         // GetFavoriteColorApiHandler,
         // IntroToAlexaConversationsButtonEventHandler,
+        GetInitialInformationApiHandler,
         StartSessionApiHandler,
         PlaySessionAudioeApiHandler,
         RecordRatingApiHandler,
