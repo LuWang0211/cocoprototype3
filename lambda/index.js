@@ -105,7 +105,7 @@ const RecordRatingApiHandler = {
     },
     handle(handlerInput) {
         console.log("Api Request [RecordRating]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
-        // First get our request entity and grab the color passed in the API call
+        // First get our request entity and grab the rating passed in the API call
         const args = util.getApiArguments(handlerInput);
         const userrating = args.userrating;
         console.log('args.userrating', args.userrating);
@@ -170,6 +170,30 @@ const ProvideFeedbackApiHandler = {
     }
 }
 
+// GetInitialInformation
+const GetInitialInformationApiHandler = {
+    canHandle(handlerInput) {
+        return util.isApiRequest(handlerInput, 'GetInitialInformation');
+    },
+    handle(handlerInput) {
+        console.log("Api Request [GetInitialInformation]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
+        // First get our request entity and grab the availabletime passed in the API call
+        const args = util.getApiArguments(handlerInput);
+        console.log('args', args);
+        try{
+            const availabletime = args.availabletime;
+        }catch(e){
+            console.log("Api Request [GetInitialInformation]: ", e);
+        }
+        
+        let response = {
+            apiResponse: 0
+        };
+
+        console.log("Api Response [GetInitialInformation]: ", JSON.stringify(response, null, 2));
+        return response;
+    }
+}
 
 
 /**
