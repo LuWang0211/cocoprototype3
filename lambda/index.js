@@ -120,7 +120,7 @@ const RecordRatingApiHandler = {
             console.log("High Rating");
             let resp_for_high_rating = [
                 'I am glad you like the exercise! Do you want to do it again, try another exercise or end the session?',
-                'That’s awesome! I’m glad you like it! Do you want to do it again, try another exercise or end the session?'
+                'That’s awesome! I’m glad you like it! Do you want to practice it again, try another exercise or end the session?'
             ];
             
             // random choice
