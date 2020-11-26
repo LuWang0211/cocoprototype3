@@ -114,16 +114,28 @@ const RecordRatingApiHandler = {
             apiResponse: ''
         };
         
+        // Provide different responses based on rating score
         console.log("userrating", userrating);
-        if (userrating === 4 || userrating === 5 || userrating === 'four' || userrating === 'five'){
+        if (userrating === 4 || userrating === 5){
             console.log("High Rating");
+            let resp_for_high_rating = [
+                'I am glad you like the exercise! Do you want to do it again, try another exercise or end the session?',
+                'That’s awesome! I’m glad you like it! Do you want to do it again, try another exercise or end the session?'
+            ];
+            
+            // random choice
             response = {
-                apiResponse: 'I am glad you like the exercise! Do you want to do it again, try another exercise or end the session?'
+                apiResponse: resp_for_high_rating[Math.floor(Math.random() * resp_for_high_rating.length)]
             };
-        } else if (userrating === 1 || userrating === 2 || userrating === 3 || userrating === 'one' || userrating === 'two'|| userrating === 'three') {
+        } else if (userrating === 1 || userrating === 2 || userrating === 3) {
             console.log("Low Rating");
+            let resp_for_low_rating = [
+                'I am sorry you do not like the exercise that much. Would you like to try other exercises or end the session?',
+                'Hmm, I will try to recommend something else next time. Do you want to try other exercises or end the session?'
+            ];
+            
             response = {
-                apiResponse: 'Hmm, I see you do not like the exercise as much. Would you like to provide some feedback?'
+                apiResponse: resp_for_low_rating[Math.floor(Math.random() * resp_for_low_rating.length)]
             };
         } else {
             console.log("Out of Rating Range");
