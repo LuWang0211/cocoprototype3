@@ -241,10 +241,12 @@ const RecordColorApiHandler = {
 const IntroToAlexaConversationsButtonEventHandler = {
     canHandle(handlerInput){
         console.log(JSON.stringify(handlerInput.requestEnvelope));
+        console.log('handlerInput.requestEnvelope.request.arguments', JSON.stringify(handlerInput.requestEnvelope.request.arguments));
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'Alexa.Presentation.APL.UserEvent'
-            && handlerInput.requestEnvelope.request.arguments[0] === 'SetFavoriteColor';
+            && handlerInput.requestEnvelope.request.arguments[0] === 'StartSession';
     },
     handle(handlerInput){
+       console.log('StartSessionVisson')
        return handlerInput.responseBuilder
                     .addDirective({
                         type: 'Dialog.DelegateRequest',
