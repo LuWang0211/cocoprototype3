@@ -285,7 +285,7 @@ const IntroToAlexaConversationsTempEventHandler = {
                         datasources: {
                             "basicBackgroundData": {
                                 "textToDisplay": "Welcome to Coco",
-                                "backgroundImage": "https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/AlexaBackgroundImg/AlexaImg2.png"
+                                "backgroundImage": "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-first-apl-skill/master/modules/assets/lights_1920x1080.png"
                             }
                         }
                     })
