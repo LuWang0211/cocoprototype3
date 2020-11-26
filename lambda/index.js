@@ -409,8 +409,8 @@ exports.handler = Alexa.SkillBuilders.custom()
         ProvideFeedbackApiHandler,
         TryOthersApiHandler,
         FallbackIntentHandler,
-        SessionEndedRequestHandler,
-        IntroToAlexaConversationsTempEventHandler
+        IntroToAlexaConversationsTempEventHandler,
+        SessionEndedRequestHandler
     )
      .withCustomUserAgent('reference-skills/intro-to-alexa-conversations/v1')
     .lambda();
