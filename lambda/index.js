@@ -272,7 +272,8 @@ const IntroToAlexaConversationsButtonEventHandler = {
 const IntroToAlexaConversationsTempEventHandler = {
     canHandle(handlerInput){
         console.log(JSON.stringify(handlerInput.requestEnvelope));
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'Alexa.Presentation.APL.UserEvent';
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'Alexa.Presentation.APL.UserEvent'
+        && handlerInput.requestEnvelope.request.arguments[0] === 'SetFavoriteColor';
     },
     handle(handlerInput){
        return handlerInput.responseBuilder
