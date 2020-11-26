@@ -216,60 +216,59 @@ const GetInitialInformationApiHandler = {
  * 
  * See https://developer.amazon.com/en-US/docs/alexa/conversations/handle-api-calls.html
  */
-const RecordColorApiHandler = {
-    canHandle(handlerInput) {
-        return util.isApiRequest(handlerInput, 'RecordColor');
-    },
-    handle(handlerInput) {
-        console.log("Api Request [RecordColor]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
-        // First get our request entity and grab the color passed in the API call
-        const args = util.getApiArguments(handlerInput);
-        const color = args.color;
-        // Store the favorite color in the session
-        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-        sessionAttributes.favoriteColor = color;
+// const RecordColorApiHandler = {
+//     canHandle(handlerInput) {
+//         return util.isApiRequest(handlerInput, 'RecordColor');
+//     },
+//     handle(handlerInput) {
+//         console.log("Api Request [RecordColor]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
+//         // First get our request entity and grab the color passed in the API call
+//         const args = util.getApiArguments(handlerInput);
+//         const color = args.color;
+//         // Store the favorite color in the session
+//         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+//         sessionAttributes.favoriteColor = color;
 
-        let response = {
-            apiResponse: {
-                color : color
-            }
-        };
-        console.log("Api Response [RecordColor]: ", JSON.stringify(response, null, 2));
-        return response;
-    }
-}
-const IntroToAlexaConversationsButtonEventHandler = {
-    canHandle(handlerInput){
-        console.log(JSON.stringify(handlerInput.requestEnvelope));
-        console.log('handlerInput.requestEnvelope.request.arguments', JSON.stringify(handlerInput.requestEnvelope.request.arguments));
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'Alexa.Presentation.APL.UserEvent'
-            && handlerInput.requestEnvelope.request.arguments[0] === 'StartSession';
-    },
-    handle(handlerInput){
-       console.log('StartSessionVisson')
-       return handlerInput.responseBuilder
-                    .addDirective({
-                        type: 'Dialog.DelegateRequest',
-                        target: 'AMAZON.Conversations',
-                        period: {
-                            until: 'EXPLICIT_RETURN' 
-                        },
-                        updatedRequest: {
-                            type: 'Dialog.InputRequest',
-                            input: {
-                                name: 'SpecifyFavoriteColor',
-                                slots: {
-                                    name: {
-                                        name : 'color',
-                                        value: handlerInput.requestEnvelope.request.arguments[1]
-                                    }
-                                }
-                            }
-                        }
-                    })
-                    .getResponse();
-    }
-}
+//         let response = {
+//             apiResponse: {
+//                 color : color
+//             }
+//         };
+//         console.log("Api Response [RecordColor]: ", JSON.stringify(response, null, 2));
+//         return response;
+//     }
+// }
+// const IntroToAlexaConversationsButtonEventHandler = {
+//     canHandle(handlerInput){
+//         console.log(JSON.stringify(handlerInput.requestEnvelope));
+//         console.log('handlerInput.requestEnvelope.request.arguments', JSON.stringify(handlerInput.requestEnvelope.request.arguments));
+//         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'Alexa.Presentation.APL.UserEvent'
+//             && handlerInput.requestEnvelope.request.arguments[0] === 'StartSession';
+//     },
+//     handle(handlerInput){
+//       return handlerInput.responseBuilder
+//                     .addDirective({
+//                         type: 'Dialog.DelegateRequest',
+//                         target: 'AMAZON.Conversations',
+//                         period: {
+//                             until: 'EXPLICIT_RETURN' 
+//                         },
+//                         updatedRequest: {
+//                             type: 'Dialog.InputRequest',
+//                             input: {
+//                                 name: 'SpecifyFavoriteColor',
+//                                 slots: {
+//                                     name: {
+//                                         name : 'color',
+//                                         value: handlerInput.requestEnvelope.request.arguments[1]
+//                                     }
+//                                 }
+//                             }
+//                         }
+//                     })
+//                     .getResponse();
+//     }
+// }
 
 const IntroToAlexaConversationsTempEventHandler = {
     canHandle(handlerInput){
