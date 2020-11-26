@@ -243,7 +243,7 @@ const GetInitialInformationApiHandler = {
 //         console.log(JSON.stringify(handlerInput.requestEnvelope));
 //         console.log('handlerInput.requestEnvelope.request.arguments', JSON.stringify(handlerInput.requestEnvelope.request.arguments));
 //         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'Alexa.Presentation.APL.UserEvent'
-//             && handlerInput.requestEnvelope.request.arguments[0] === 'StartSession';
+//             && handlerInput.requestEnvelope.request.arguments[0] === 'SetFavoriteColor';
 //     },
 //     handle(handlerInput){
 //       return handlerInput.responseBuilder
@@ -273,8 +273,9 @@ const GetInitialInformationApiHandler = {
 const IntroToAlexaConversationsTempEventHandler = {
     canHandle(handlerInput){
         console.log(JSON.stringify(handlerInput.requestEnvelope));
+        console.log('handlerInput.requestEnvelope.request.arguments', JSON.stringify(handlerInput.requestEnvelope.request.arguments));
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'Alexa.Presentation.APL.UserEvent'
-        && handlerInput.requestEnvelope.request.arguments[0] === 'SetFavoriteColor';
+        && handlerInput.requestEnvelope.request.arguments[0] === 'StartSession';
     },
     handle(handlerInput){
        console.log('StartSessionVisson')
