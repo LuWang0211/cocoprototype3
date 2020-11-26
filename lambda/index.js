@@ -277,6 +277,7 @@ const IntroToAlexaConversationsTempEventHandler = {
         && handlerInput.requestEnvelope.request.arguments[0] === 'SetFavoriteColor';
     },
     handle(handlerInput){
+       console.log('StartSessionVisson')
        return handlerInput.responseBuilder
                     .addDirective({
                         type: 'Alexa.Presentation.APL.RenderDocument',
@@ -302,28 +303,28 @@ const IntroToAlexaConversationsTempEventHandler = {
  * 
  * See https://developer.amazon.com/en-US/docs/alexa/conversations/handle-api-calls.html
  */
-const GetFavoriteColorApiHandler = {
-    canHandle(handlerInput) {
-        return util.isApiRequest(handlerInput, 'GetFavoriteColor');
-    },
-    handle(handlerInput) {
-        console.log("Api Request [GetFavoriteColor]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
+// const GetFavoriteColorApiHandler = {
+//     canHandle(handlerInput) {
+//         return util.isApiRequest(handlerInput, 'GetFavoriteColor');
+//     },
+//     handle(handlerInput) {
+//         console.log("Api Request [GetFavoriteColor]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
         
-        // Get the favorite color from the session
-        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-        if (sessionAttributes.favoriteColor){
-            var color = sessionAttributes.favoriteColor;
-        }
-        let response = {
-            apiResponse: {
-                color : color
-            }
-        };
+//         // Get the favorite color from the session
+//         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+//         if (sessionAttributes.favoriteColor){
+//             var color = sessionAttributes.favoriteColor;
+//         }
+//         let response = {
+//             apiResponse: {
+//                 color : color
+//             }
+//         };
         
-        console.log("Api Response [GetFavoriteColor]: ", JSON.stringify(response, null, 2));
-        return response;
-    }
-}
+//         console.log("Api Response [GetFavoriteColor]: ", JSON.stringify(response, null, 2));
+//         return response;
+//     }
+// }
 /**
  * FallbackIntentHandler - Handle all other requests to the skill 
  * 
