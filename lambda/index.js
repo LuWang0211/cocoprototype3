@@ -278,7 +278,7 @@ const IntroToAlexaConversationsTempEventHandler = {
         && handlerInput.requestEnvelope.request.arguments[0] === 'StartSession';
     },
     handle(handlerInput){
-       console.log('StartSessionVisson')
+       console.log('IntroToAlexaConversationsTempEventHandler')
        return handlerInput.responseBuilder
                     .addDirective({
                         type: 'Alexa.Presentation.APL.RenderDocument',
