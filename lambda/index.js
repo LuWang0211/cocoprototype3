@@ -18,6 +18,8 @@ const Alexa     = require('ask-sdk-core');
 const util      = require('./util');
 const process = require('process');
 
+const launchDocument = require('./launchDocument.json');
+
 // add firebase
 const firebase = require("firebase");
 
@@ -57,6 +59,29 @@ const StartSessionApiHandler = {
         let response = {
             apiResponse: 0
         };
+        
+        
+        // Add APL directive to response
+        if (Alexa.getSupportedInterfaces(handlerInput.requestEnvelope)['Alexa.Presentation.APL']) {
+            // Create Render Directive
+            handlerInput.responseBuilder.addDirective({
+                type: 'Alexa.Presentation.APL.RenderDocument',
+                document: launchDocument,
+                datasources: {
+                    text: {
+                        type: 'object',
+                        start: "Welcome",
+                        middle: "to",
+                        end: "Cake Time!"
+                    },
+                    assets: {
+                        backgroundURL: "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-first-apl-skill/master/modules/assets/lights_1920x1080.png?raw=true "
+                    }
+                }
+            });
+        }
+        
+        
 
         console.log("Api Response [StartSession]: ", JSON.stringify(response, null, 2));
         return response;
@@ -281,16 +306,16 @@ const IntroToAlexaConversationsTempEventHandler = {
     handle(handlerInput){
        console.log('IntroToAlexaConversationsTempEventHandler')
        return handlerInput.responseBuilder
-                    .addDirective({
-                        type: 'Alexa.Presentation.APL.RenderDocument',
-                        datasources: {
-                            "basicBackgroundData": {
-                                "textToDisplay": "Welcome to Coco",
-                                "backgroundImage": "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-first-apl-skill/master/modules/assets/lights_1920x1080.png"
-                            }
+                .addDirective({
+                    type: 'Alexa.Presentation.APL.RenderDocument',
+                    datasources: {
+                        "basicBackgroundData": {
+                            "textToDisplay": "Welcome to Coco",
+                            "backgroundImage": "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-first-apl-skill/master/modules/assets/lights_1920x1080.png"
                         }
-                    })
-                    .getResponse();
+                    }
+                })
+                .getResponse();
     }
 }
 
