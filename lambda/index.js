@@ -269,6 +269,29 @@ const IntroToAlexaConversationsButtonEventHandler = {
     }
 }
 
+const IntroToAlexaConversationsTempEventHandler = {
+    canHandle(handlerInput){
+        console.log(JSON.stringify(handlerInput.requestEnvelope));
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'Alexa.Presentation.APL.UserEvent';
+    },
+    handle(handlerInput){
+       return handlerInput.responseBuilder
+                    .addDirective({
+                        type: 'Alexa.Presentation.APL.RenderDocument',
+                        datasources: {
+                            "basicBackgroundData": {
+                                "textToDisplay": "Welcome to Coco",
+                                "backgroundImage": "https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/AlexaBackgroundImg/AlexaImg2.png"
+                            }
+                        }
+                    })
+                    .getResponse();
+    }
+}
+
+
+
+
 /**
  * API Handler for GetFavoriteColor API
  * 
@@ -379,6 +402,7 @@ exports.handler = Alexa.SkillBuilders.custom()
         // GetFavoriteColorApiHandler,
         // IntroToAlexaConversationsButtonEventHandler,
         GetInitialInformationApiHandler,
+        IntroToAlexaConversationsTempEventHandler,
         StartSessionApiHandler,
         PlaySessionAudioeApiHandler,
         RecordRatingApiHandler,
