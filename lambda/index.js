@@ -403,14 +403,14 @@ exports.handler = Alexa.SkillBuilders.custom()
         // GetFavoriteColorApiHandler,
         // IntroToAlexaConversationsButtonEventHandler,
         GetInitialInformationApiHandler,
-        IntroToAlexaConversationsTempEventHandler,
         StartSessionApiHandler,
         PlaySessionAudioeApiHandler,
         RecordRatingApiHandler,
         ProvideFeedbackApiHandler,
         TryOthersApiHandler,
         FallbackIntentHandler,
-        SessionEndedRequestHandler
+        SessionEndedRequestHandler,
+        IntroToAlexaConversationsTempEventHandler
     )
      .withCustomUserAgent('reference-skills/intro-to-alexa-conversations/v1')
     .lambda();
