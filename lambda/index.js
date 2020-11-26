@@ -62,24 +62,24 @@ const StartSessionApiHandler = {
         
         
         // Add APL directive to response
-        if (Alexa.getSupportedInterfaces(handlerInput.requestEnvelope)['Alexa.Presentation.APL']) {
-            // Create Render Directive
-            handlerInput.responseBuilder.addDirective({
-                type: 'Alexa.Presentation.APL.RenderDocument',
-                document: launchDocument,
-                datasources: {
-                    text: {
-                        type: 'object',
-                        start: "Welcome",
-                        middle: "to",
-                        end: "Cake Time!"
-                    },
-                    assets: {
-                        backgroundURL: "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-first-apl-skill/master/modules/assets/lights_1920x1080.png?raw=true "
-                    }
-                }
-            });
-        }
+        // if (Alexa.getSupportedInterfaces(handlerInput.requestEnvelope)['Alexa.Presentation.APL']) {
+        //     // Create Render Directive
+        //     handlerInput.responseBuilder.addDirective({
+        //         type: 'Alexa.Presentation.APL.RenderDocument',
+        //         document: launchDocument,
+        //         datasources: {
+        //             text: {
+        //                 type: 'object',
+        //                 start: "Welcome",
+        //                 middle: "to",
+        //                 end: "Cake Time!"
+        //             },
+        //             assets: {
+        //                 backgroundURL: "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-first-apl-skill/master/modules/assets/lights_1920x1080.png?raw=true "
+        //             }
+        //         }
+        //     });
+        // }
         
         
 
