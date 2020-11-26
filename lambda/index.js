@@ -409,7 +409,7 @@ exports.handler = Alexa.SkillBuilders.custom()
         ProvideFeedbackApiHandler,
         TryOthersApiHandler,
         FallbackIntentHandler,
-        IntroToAlexaConversationsTempEventHandler,
+        // IntroToAlexaConversationsTempEventHandler,
         SessionEndedRequestHandler
     )
      .withCustomUserAgent('reference-skills/intro-to-alexa-conversations/v1')
