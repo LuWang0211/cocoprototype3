@@ -18,8 +18,6 @@ const Alexa     = require('ask-sdk-core');
 const util      = require('./util');
 const process = require('process');
 
-const launchDocument = require('./launchDocument.json');
-
 // add firebase
 const firebase = require("firebase");
 
@@ -42,47 +40,24 @@ firebase.initializeApp({
  * See https://developer.amazon.com/en-US/docs/alexa/conversations/handle-api-calls.html
  */
  
-  // StartSession
+// StartSession
 const StartSessionApiHandler = {
     canHandle(handlerInput) {
         return util.isApiRequest(handlerInput, 'StartSession');
     },
     handle(handlerInput) {
         console.log("Api Request [StartSession]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
-        // First get our request entity and grab the color passed in the API call
+        // First get our request entity and grab the InitExercise passed in the API call
         const args = util.getApiArguments(handlerInput);
         const InitExercise = args.InitExercise;
-        // Store the favorite color in the session
-        // const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-        // sessionAttributes.favoriteColor = color;
+        // Store the favorite InitExercise in the session
+        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        sessionAttributes.InitExercise = InitExercise;
         
         let response = {
             apiResponse: 0
         };
         
-        
-        // Add APL directive to response
-        // if (Alexa.getSupportedInterfaces(handlerInput.requestEnvelope)['Alexa.Presentation.APL']) {
-        //     // Create Render Directive
-        //     handlerInput.responseBuilder.addDirective({
-        //         type: 'Alexa.Presentation.APL.RenderDocument',
-        //         document: launchDocument,
-        //         datasources: {
-        //             text: {
-        //                 type: 'object',
-        //                 start: "Welcome",
-        //                 middle: "to",
-        //                 end: "Cake Time!"
-        //             },
-        //             assets: {
-        //                 backgroundURL: "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-first-apl-skill/master/modules/assets/lights_1920x1080.png?raw=true "
-        //             }
-        //         }
-        //     });
-        // }
-        
-        
-
         console.log("Api Response [StartSession]: ", JSON.stringify(response, null, 2));
         return response;
     }
