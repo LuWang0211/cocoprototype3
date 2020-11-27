@@ -143,7 +143,7 @@ const PlaySessionAudioeApiHandler = {
 }
 
 
- // RecordRating
+// RecordRating
 const RecordRatingApiHandler = {
     canHandle(handlerInput) {
         return util.isApiRequest(handlerInput, 'RecordRating');
