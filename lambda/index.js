@@ -100,22 +100,37 @@ const PlaySessionAudioeApiHandler = {
     async handle(handlerInput) {
         console.log("Api Request [PlaySessionAudio]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
         var db = firebase.database();
-        var ref = db.ref('LastRecommendedResource');
+        var ref_audio = db.ref('LastRecommendedResource');
+        var ref_rating = db.ref('LastRatingScore');
         
         let response = {
             apiResponse: ''
         };
         
-        const data_snapshot = await ref.once('value');
+        const data_snapshot_audio = await ref_audio.once('value');
+        const data_snapshot_rating = await ref_rating.once('value');
+        // release db
         db.goOffline();
-        const result = data_snapshot.val();
-        console.log("result", result);
+        const result_audio = data_snapshot_audio.val();
+        const result_rating = data_snapshot_rating.val();
+        console.log("audio: ", result_audio);
+        console.log("rating ", result_rating);
         try{
-            const Uri = result.audiouri;
+            const Uri = result_audio.audiouri;
+            const Rating = result_rating;
             console.log('get firebase data URI', Uri)
-            response = {
-                apiResponse: Uri
-            };
+            console.log('get firebase data Rating', Rating)
+            
+            if (Rating === '4' || Rating === '5') {
+                response = {
+                    apiResponse: Uri
+                };
+            } else {
+                
+            }
+            
+            
+
         }catch(e){
             console.log("get firebase data URI ERROR", e)
         }
