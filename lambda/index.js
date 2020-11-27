@@ -332,17 +332,24 @@ const IntroToAlexaConversationsTempEventHandler = {
        console.log('IntroToAlexaConversationsTempEventHandler')
        return handlerInput.responseBuilder
                 .addDirective({
-                    type: 'Alexa.Presentation.APL.RenderDocument',
-                    datasources: {
-                        "basicBackgroundData": {
-                            "textToDisplay": "Welcome to Coco",
-                            "backgroundImage": "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-first-apl-skill/master/modules/assets/lights_1920x1080.png"
-                        }
-                    }
+                    // type: 'Alexa.Presentation.APL.RenderDocument',
+                    // datasources: {
+                    //     "basicBackgroundData": {
+                    //         "textToDisplay": "Welcome to Coco",
+                    //         "backgroundImage": "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-first-apl-skill/master/modules/assets/lights_1920x1080.png"
+                    //     }
+                    // }
+                    type: 'Dialog.DelegateRequest',
+                    target: 'AMAZON.Conversations',
+                    period: {
+                        until: 'EXPLICIT_RETURN' 
+                    },
                 })
                 .getResponse();
     }
 }
+
+
 
 
 /**
