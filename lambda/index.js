@@ -132,8 +132,6 @@ const PlaySessionAudioeApiHandler = {
                     apiResponse: "https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/final_resources/4min_meditation.mp3" // for testing
                 };
             }
-            
-            
 
         }catch(e){
             console.log("get firebase data URI ERROR", e)
