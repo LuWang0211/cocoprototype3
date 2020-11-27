@@ -387,10 +387,10 @@ const FallbackIntentHandler = {
     canHandle(handlerInput) {
         const request = handlerInput.requestEnvelope.request;
         // return request.type === 'IntentRequest' && request.intent.name !== 'GetFavoriteColorApiHandler' && request.intent.name !== 'RecordColorApiHandler';
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'Dialog.API.Invoked' && request.apiRequest.name !== 'StartSessionApiHandler' 
-               && request.apiRequest.name !== 'PlaySessionAudioeApiHandler'  && request.apiRequest.name !== 'RecordRatingApiHandler'
-               && request.apiRequest.name !== 'ProvideFeedbackApiHandler'  && request.apiRequest.name !== 'TryOthersApiHandler'
-               && request.apiRequest.name !== 'GetInitialInformationApiHandler';
+        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'Dialog.API.Invoked'
+                && request.apiRequest.name !== 'StartSessionApiHandler' && request.apiRequest.name !== 'PlaySessionAudioeApiHandler'
+                && request.apiRequest.name !== 'RecordRatingApiHandler' && request.apiRequest.name !== 'ProvideFeedbackApiHandler'
+                && request.apiRequest.name !== 'TryOthersApiHandler' && request.apiRequest.name !== 'GetInitialInformationApiHandler';
     },
     handle(handlerInput) {
         const intentName = handlerInput.requestEnvelope.request.intent.name;
@@ -403,6 +403,7 @@ const FallbackIntentHandler = {
             .getResponse();
     },
 };
+
 const SessionEndedRequestHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'SessionEndedRequest';
@@ -415,6 +416,7 @@ const SessionEndedRequestHandler = {
 // Generic error handling to capture any syntax or routing errors. If you receive an error
 // stating the request handler chain is not found, you have not implemented a handler for
 // the intent being invoked or included it in the skill builder below.
+
 const ErrorHandler = {
     canHandle() {
         return true;
@@ -464,5 +466,5 @@ exports.handler = Alexa.SkillBuilders.custom()
         IntroToAlexaConversationsTempEventHandler,
         SessionEndedRequestHandler
     )
-     .withCustomUserAgent('reference-skills/intro-to-alexa-conversations/v1')
+    .withCustomUserAgent('reference-skills/intro-to-alexa-conversations/v1')
     .lambda();
