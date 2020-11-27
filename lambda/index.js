@@ -230,6 +230,15 @@ const ProvideFeedbackApiHandler = {
     },
     handle(handlerInput) {
         console.log("Api Request [ProvideFeedback]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
+        
+        var db = firebase.database();
+        var ref = db.ref('LastRatingScore');
+        
+        // console.log("db", db);
+        // console.log("ref", ref);
+        const result = await ref.set(userrating.toString());
+        
+        db.goOffline();
         let response = {
             apiResponse: 0
         };
