@@ -122,11 +122,15 @@ const PlaySessionAudioeApiHandler = {
             console.log('get firebase data Rating', Rating)
             
             if (Rating === '4' || Rating === '5') {
+                console.log("High Rating Resource")
                 response = {
                     apiResponse: Uri
                 };
             } else {
-                
+                console.log("Low Rating Resource")
+                response = {
+                    apiResponse: "https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/final_resources/4min_meditation.mp3" // for testing
+                };
             }
             
             
