@@ -78,7 +78,7 @@ const StartSessionApiHandler = {
         // First get our request entity and grab the InitExercise passed in the API call
         const args = util.getApiArguments(handlerInput);
         const InitExercise = args.InitExercise;
-        // Store the favorite InitExercise in the session
+        // Store the InitExercise in the session
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
         sessionAttributes.InitExercise = InitExercise;
         
@@ -148,12 +148,25 @@ const RecordRatingApiHandler = {
     canHandle(handlerInput) {
         return util.isApiRequest(handlerInput, 'RecordRating');
     },
-    handle(handlerInput) {
+    async handle(handlerInput) {
         console.log("Api Request [RecordRating]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
         // First get our request entity and grab the rating passed in the API call
         const args = util.getApiArguments(handlerInput);
         const userrating = args.userrating;
         console.log('args.userrating', args.userrating);
+        
+        // Store the Rating in the session
+        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        sessionAttributes.userrating = userrating;
+        
+        var db = firebase.database();
+        var ref = db.ref('LastRatingScore');
+        
+        // console.log("db", db);
+        // console.log("ref", ref);
+        const result = await ref.set(userrating.toString());
+        
+        db.goOffline();
         
         let response = {
             apiResponse: ''
