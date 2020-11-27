@@ -218,7 +218,6 @@ const TryOthersApiHandler = {
         let response = {
             apiResponse: 0
         };
-
         console.log("Api Response [TryOthers]: ", JSON.stringify(response, null, 2));
         return response;
     }
