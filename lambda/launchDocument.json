@@ -67,9 +67,9 @@
                     },
                     {
                         "type": "cakeTimeText",
-                        "startText":"${text.start}",
-                        "middleText":"${text.middle}",
-                        "endText":"${text.end}"
+                        "startText":"Testing COCO",
+                        "middleText":"Testing COCO",
+                        "endText":"Testing COCO"
                     },
                     {
                         "type": "AlexaImage",
@@ -96,9 +96,9 @@
                     }, 
                     {
                         "type": "cakeTimeText",
-                        "startText":"${text.start}",
-                        "middleText":"${text.middle}",
-                        "endText":"${text.end}"
+                        "startText":"Testing COCO",
+                        "middleText":"Testing COCO",
+                        "endText":"Testing COCO"
                     }
                 ],
                 "height": "100%",
