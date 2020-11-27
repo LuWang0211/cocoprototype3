@@ -345,8 +345,6 @@ const IntroToAlexaConversationsTempEventHandler = {
 }
 
 
-
-
 /**
  * API Handler for GetFavoriteColor API
  * 
