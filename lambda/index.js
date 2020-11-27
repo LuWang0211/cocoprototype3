@@ -228,17 +228,25 @@ const ProvideFeedbackApiHandler = {
     canHandle(handlerInput) {
         return util.isApiRequest(handlerInput, 'ProvideFeedback');
     },
-    handle(handlerInput) {
+    async handle(handlerInput) {
         console.log("Api Request [ProvideFeedback]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
+        let feedback = 'no input'
+        try {
+            if (handlerInput.requestEnvelope.request.apiRequest.input) {
+               console.log("Api Request [ProvideFeedback] Inpurt: ", handlerInput.requestEnvelope.request.apiRequest.input);
+               feedback = handlerInput.requestEnvelope.request.apiRequest.input
+            }
+        } catch(e) {
+            console.log("Api Request [ProvideFeedback] Inpurt: ", e);
+        }
         
         var db = firebase.database();
-        var ref = db.ref('LastRatingScore');
+        var ref = db.ref('Alexa/Feedback');
         
         // console.log("db", db);
-        // console.log("ref", ref);
-        const result = await ref.set(userrating.toString());
-        
+        const result = await ref.set(feedback);
         db.goOffline();
+        
         let response = {
             apiResponse: 0
         };
@@ -247,8 +255,6 @@ const ProvideFeedbackApiHandler = {
         return response;
     }
 }
-
-
 
 
 /**
