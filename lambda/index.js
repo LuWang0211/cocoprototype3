@@ -40,6 +40,34 @@ firebase.initializeApp({
  * See https://developer.amazon.com/en-US/docs/alexa/conversations/handle-api-calls.html
  */
  
+// GetInitialInformation
+const GetInitialInformationApiHandler = {
+    canHandle(handlerInput) {
+        return util.isApiRequest(handlerInput, 'GetInitialInformation');
+    },
+    handle(handlerInput) {
+        console.log("Api Request [GetInitialInformation]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
+        // First get our request entity and grab the availabletime passed in the API call
+        const args = util.getApiArguments(handlerInput);
+        console.log('args', args);
+        try{
+            const availabletime = args.availabletime;
+            // Store the favorite InitExercise in the session
+            const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+            sessionAttributes.availabletime = availabletime;
+        }catch(e){
+            console.log("Api Request [GetInitialInformation]: ", e);
+        }
+        
+        let response = {
+            apiResponse: 0
+        };
+
+        console.log("Api Response [GetInitialInformation]: ", JSON.stringify(response, null, 2));
+        return response;
+    }
+}
+ 
 // StartSession
 const StartSessionApiHandler = {
     canHandle(handlerInput) {
@@ -182,30 +210,7 @@ const ProvideFeedbackApiHandler = {
     }
 }
 
-// GetInitialInformation
-const GetInitialInformationApiHandler = {
-    canHandle(handlerInput) {
-        return util.isApiRequest(handlerInput, 'GetInitialInformation');
-    },
-    handle(handlerInput) {
-        console.log("Api Request [GetInitialInformation]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
-        // First get our request entity and grab the availabletime passed in the API call
-        const args = util.getApiArguments(handlerInput);
-        console.log('args', args);
-        try{
-            const availabletime = args.availabletime;
-        }catch(e){
-            console.log("Api Request [GetInitialInformation]: ", e);
-        }
-        
-        let response = {
-            apiResponse: 0
-        };
 
-        console.log("Api Response [GetInitialInformation]: ", JSON.stringify(response, null, 2));
-        return response;
-    }
-}
 
 
 /**
