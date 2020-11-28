@@ -99,7 +99,9 @@ const PlaySessionAudioeApiHandler = {
         return util.isApiRequest(handlerInput, 'PlaySessionAudio');
     },
     async handle(handlerInput) {
+                
         console.log("Api Request [PlaySessionAudio]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
+        const db = firebase.database();
         let ref_audio = db.ref('LastRecommendedResource');
         let ref_rating = db.ref('LastRatingScore');
         
@@ -107,7 +109,7 @@ const PlaySessionAudioeApiHandler = {
             apiResponse: ''
         };
         
-        const db = firebase.database();
+
         
         const data_snapshot_audio = await ref_audio.once('value');
         // const data_snapshot_rating = await ref_rating.once('value');
