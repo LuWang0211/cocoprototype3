@@ -162,7 +162,7 @@ const RecordRatingApiHandler = {
         
         var db = firebase.database();
         var ref = db.ref('LastRatingScore');
-        
+        const data_snapshot_rating = await ref.once('value');
         // console.log("db", db);
         // console.log("ref", ref);
         
@@ -175,7 +175,6 @@ const RecordRatingApiHandler = {
         if (userrating === 4 || userrating === 5){
             const result = await ref.set(string_rating);
             db.goOffline();
-            
             console.log("High Rating");
             let resp_for_high_rating = [
                 'I am glad you like the exercise! Do you want to do it again, try another exercise or end the session?',
@@ -188,7 +187,6 @@ const RecordRatingApiHandler = {
         } else if (userrating === 1 || userrating === 2 || userrating === 3) {
             const result = await ref.set(string_rating);
             db.goOffline();
-            
             console.log("Low Rating");
             let resp_for_low_rating = [
                 'I am sorry you do not like the exercise that much. Would you like to try other exercises or end the session?',
@@ -200,10 +198,16 @@ const RecordRatingApiHandler = {
             };
         } else {
             console.log("Out of Rating Range");
+            const result = await ref.set(data_snapshot_rating);
+            db.goOffline();
             response = {
                 apiResponse: 'Sorry, please using a number between one to five!'
             };
         }
+        
+
+        
+        
         
         console.log("Api Response [RecordRating]: ", JSON.stringify(response, null, 2));
         return response;
