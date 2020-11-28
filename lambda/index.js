@@ -72,7 +72,6 @@ const GetInitialInformationApiHandler = {
         db.goOffline();
         
 
-
         const availabletime = args.availabletime;
         // Store the favorite InitExercise in the session
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
