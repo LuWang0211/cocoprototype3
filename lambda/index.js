@@ -359,6 +359,23 @@ const WelcomeVisualTempHandler = {
     }
 }
 
+const EndSessionVisualViewHandler = {
+    canHandle(handlerInput){
+        return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'EndSessionVisualView';
+    },
+    handle(handlerInput){
+       console.log('IntroToAlexaConversationsTempEventHandler')
+       return handlerInput.responseBuilder
+                .addDirective({
+                    type: 'Dialog.DelegateRequest',
+                    target: 'AMAZON.Conversations',
+                    period: {
+                        until: 'EXPLICIT_RETURN' 
+                    },
+                })
+                .getResponse();
+    }
+}
 
 /**
  * API Handler for GetFavoriteColor API
@@ -479,6 +496,8 @@ exports.handler = Alexa.SkillBuilders.custom()
         TryOthersApiHandler,
         FallbackIntentHandler,
         IntroToAlexaConversationsTempEventHandler,
+        WelcomeVisualTempHandler,
+        EndSessionVisualViewHandler,
         SessionEndedRequestHandler
     )
     .withCustomUserAgent('reference-skills/intro-to-alexa-conversations/v1')
