@@ -108,10 +108,10 @@ const PlaySessionAudioeApiHandler = {
             apiResponse: ''
         };
         
-        const data_snapshot_audio = await ref_audio.once('value');
-        const data_snapshot_rating = await ref_rating.once('value');
-        const result_audio = data_snapshot_audio.val();
-        const result_rating = data_snapshot_rating.val();
+        let data_snapshot_audio = await ref_audio.once('value');
+        let data_snapshot_rating = await ref_rating.once('value');
+        let result_audio = data_snapshot_audio.val();
+        let result_rating = data_snapshot_rating.val();
         // release db
         // console.log("db", db);
         db.goOffline();
