@@ -153,7 +153,6 @@ const RecordRatingApiHandler = {
         // First get our request entity and grab the rating passed in the API call
         const args = util.getApiArguments(handlerInput);
         const userrating = args.userrating;
-        const string_rating = userrating.toString();
         console.log('args.userrating', args.userrating);
         
         // Store the Rating in the session
