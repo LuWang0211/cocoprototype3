@@ -62,9 +62,6 @@ const GetInitialInformationApiHandler = {
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
         sessionAttributes.availabletime = availabletime;
         sessionAttributes.uri = result_audio;
-        if (sessionAttributes.firebase){
-            
-        }
         
         // try{
         //     const availabletime = args.availabletime;
@@ -92,9 +89,26 @@ const StartSessionApiHandler = {
     async handle(handlerInput) {
         console.log("Api Request [StartSession]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
         // First get our request entity and grab the InitExercise passed in the API call
-        const args = util.getApiArguments(handlerInput);
-        const ref_audio = db.ref('LastRecommendedResource');
-        const data_snapshot_audio = ref_audio.once('value');
+        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        if (sessionAttributes.uri.length > 0) {
+            console.log("get uri")
+            // testing
+            db.goOnline();
+            const ref_audio = db.ref('LastRecommendedResource');
+            const data_snapshot_audio = await ref_audio.once('value');
+            const result_audio = data_snapshot_audio.val();
+            db.goOffline();
+        } else {
+            // testing
+            const ref_audio = db.ref('LastRecommendedResource');
+            const data_snapshot_audio = await ref_audio.once('value');
+            const result_audio = data_snapshot_audio.val();
+            db.goOffline();
+        }
+        
+        // const args = util.getApiArguments(handlerInput);
+        // const ref_audio = db.ref('LastRecommendedResource');
+        // const data_snapshot_audio = ref_audio.once('value');
 
         // Store the InitExercise in the session
         // const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
