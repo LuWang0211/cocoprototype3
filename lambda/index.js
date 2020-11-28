@@ -80,8 +80,8 @@ const StartSessionApiHandler = {
         const args = util.getApiArguments(handlerInput);
         const InitExercise = args.InitExercise;
         // Store the InitExercise in the session
-        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-        sessionAttributes.InitExercise = InitExercise;
+        // const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        // sessionAttributes.InitExercise = InitExercise;
         
         let response = {
             apiResponse: 0
@@ -110,32 +110,36 @@ const PlaySessionAudioeApiHandler = {
         const db = firebase.database();
         
         const data_snapshot_audio = await ref_audio.once('value');
-        const data_snapshot_rating = await ref_rating.once('value');
+        // const data_snapshot_rating = await ref_rating.once('value');
         const result_audio = data_snapshot_audio.val();
-        const result_rating = data_snapshot_rating.val();
+        // const result_rating = data_snapshot_rating.val();
         // release db
         // console.log("db", db);
         db.goOffline();
         // console.log("db", db);
         console.log("audio: ", result_audio);
-        console.log("rating ", result_rating);
+        // console.log("rating ", result_rating);
         try{
             let Uri = result_audio.audiouri;
-            let Rating = result_rating;
+            // let Rating = result_rating;
             console.log('get firebase data URI', Uri)
-            console.log('get firebase data Rating', Rating)
+            // console.log('get firebase data Rating', Rating)
             
-            if (Rating === '4' || Rating === '5') {
-                console.log("High Rating Resource")
-                response = {
-                    apiResponse: Uri
-                };
-            } else {
-                console.log("Low Rating Resource")
-                response = {
-                    apiResponse: 'https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/final_resources/4min_meditation.mp3' // for testing
-                };
-            }
+            response = {
+                apiResponse: Uri
+            };
+            
+            // if (Rating === '4' || Rating === '5') {
+            //     console.log("High Rating Resource")
+            //     response = {
+            //         apiResponse: Uri
+            //     };
+            // } else {
+            //     console.log("Low Rating Resource")
+            //     response = {
+            //         apiResponse: 'https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/final_resources/4min_meditation.mp3' // for testing
+            //     };
+            // }
 
         }catch(e){
             console.log("get firebase data URI ERROR", e)
