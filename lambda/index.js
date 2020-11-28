@@ -100,7 +100,9 @@ const StartSessionApiHandler = {
     async handle(handlerInput) {
         console.log("Api Request [StartSession]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
         // First get our request entity and grab the InitExercise passed in the API call
+        const args = util.getApiArguments(handlerInput);
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        const InitExercise = args.InitExercise;
         sessionAttributes.InitExercise = InitExercise;
         
         if (!sessionAttributes.uri) {
