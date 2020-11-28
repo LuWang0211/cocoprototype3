@@ -109,8 +109,6 @@ const PlaySessionAudioeApiHandler = {
             apiResponse: ''
         };
         
-
-        
         const data_snapshot_audio = await ref_audio.once('value');
         // const data_snapshot_rating = await ref_rating.once('value');
         const result_audio = data_snapshot_audio.val();
