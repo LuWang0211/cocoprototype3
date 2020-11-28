@@ -101,7 +101,7 @@ const StartSessionApiHandler = {
         console.log("Api Request [StartSession]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
         // First get our request entity and grab the InitExercise passed in the API call
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-        // sessionAttributes.InitExercise = InitExercise;
+        sessionAttributes.InitExercise = InitExercise;
         
         if (!sessionAttributes.uri) {
             console.log("not get sessionAttributes uri")
@@ -136,86 +136,99 @@ const PlaySessionAudioeApiHandler = {
     canHandle(handlerInput) {
         return util.isApiRequest(handlerInput, 'PlaySessionAudio');
     },
-    // async handle(handlerInput) {
-                
-    //     console.log("Api Request [PlaySessionAudio]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
-    //     // const db = firebase.database();
-        
-    //     console.log("db before:", db);
-    //     const ref_audio = db.ref('LastRecommendedResource');
-    //     // let ref_rating = db.ref('LastRatingScore');
-        
-    //     let response = {
-    //         apiResponse: ''
-    //     };
-        
-    //     const data_snapshot_audio = await ref_audio.once('value');
-    //     // const data_snapshot_rating = await ref_rating.once('value');
-    //     const result_audio = data_snapshot_audio.val();
-    //     // const result_rating = data_snapshot_rating.val();
-    //     // release db
-
-    //     db.goOffline();
-    //     // console.log("db", db);
-    //     console.log("audio: ", result_audio);
-    //     console.log("db after:", db);
-    //     // console.log("rating ", result_rating);
-    //     try{
-    //         let Uri = result_audio.audiouri;
-    //         // let Rating = result_rating;
-    //         console.log('get firebase data URI', Uri)
-    //         // console.log('get firebase data Rating', Rating)
-            
-    //         response = {
-    //             apiResponse: Uri
-    //         };
-            
-    //         // if (Rating === '4' || Rating === '5') {
-    //         //     console.log("High Rating Resource")
-    //         //     response = {
-    //         //         apiResponse: Uri
-    //         //     };
-    //         // } else {
-    //         //     console.log("Low Rating Resource")
-    //         //     response = {
-    //         //         apiResponse: 'https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/final_resources/4min_meditation.mp3' // for testing
-    //         //     };
-    //         // }
-
-    //     }catch(e){
-    //         console.log("get firebase data URI ERROR", e)
-    //     }
-
-    //     console.log("Api Response [PlaySessionAudio]: ", JSON.stringify(response, null, 2));
-    //     return response;
-    // }
-    handle(handlerInput) {
-                
+    async handle(handlerInput) {
         console.log("Api Request [PlaySessionAudio]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
-        
         let response = {
             apiResponse: ''
         };
+        
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-        if (sessionAttributes.uri){
-            var uri = sessionAttributes.uri.audiouri;
+        
+        if (!sessionAttributes.uri) {
+            console.log("not get sessionAttributes uri")
+            // testing
+            const ref_audio = db.ref('LastRecommendedResource');
+            // let ref_rating = db.ref('LastRatingScore');
+            const data_snapshot_audio = await ref_audio.once('value');
+            // const data_snapshot_rating = await ref_rating.once('value');
+            const result_audio = data_snapshot_audio.val();
+            // const result_rating = data_snapshot_rating.val();
+            sessionAttributes.uri = result_audio;
+            db.goOffline();
+            console.log("audio: ", result_audio);
+            // console.log("rating ", result_rating);
         } else {
-            console.log('testing haha ')
+            // testing
+            console.log("get sessionAttributes uri")
+            db.goOnline();
+            const ref_audio = db.ref('LastRecommendedResource');
+            const data_snapshot_audio = await ref_audio.once('value');
+            const result_audio = data_snapshot_audio.val();
+            let Uri = result_audio.audiouri;
+            sessionAttributes.uri = result_audio;
+            db.goOffline();
+            console.log("audio: ", result_audio);
+            // console.log("rating ", result_rating);
         }
-        try{
-            let Uri = uri;
 
+
+        try{
+            // let Uri = result_audio.audiouri;
+            // let Rating = result_rating;
+            let Uri = sessionAttributes.uri.audiouri
+            console.log('get firebase data URI', Uri)
+            // console.log('get firebase data Rating', Rating)
+            
             response = {
                 apiResponse: Uri
             };
+            
+            // if (Rating === '4' || Rating === '5') {
+            //     console.log("High Rating Resource")
+            //     response = {
+            //         apiResponse: Uri
+            //     };
+            // } else {
+            //     console.log("Low Rating Resource")
+            //     response = {
+            //         apiResponse: 'https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/final_resources/4min_meditation.mp3' // for testing
+            //     };
+            // }
 
         }catch(e){
-            console.log("session data", e)
+            console.log("get firebase data URI ERROR", e)
         }
 
         console.log("Api Response [PlaySessionAudio]: ", JSON.stringify(response, null, 2));
         return response;
     }
+    // handle(handlerInput) {
+                
+    //     console.log("Api Request [PlaySessionAudio]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
+        
+    //     let response = {
+    //         apiResponse: ''
+    //     };
+    //     const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+    //     if (sessionAttributes.uri){
+    //         var uri = sessionAttributes.uri.audiouri;
+    //     } else {
+    //         console.log('testing haha ')
+    //     }
+    //     try{
+    //         let Uri = uri;
+
+    //         response = {
+    //             apiResponse: Uri
+    //         };
+
+    //     }catch(e){
+    //         console.log("session data", e)
+    //     }
+
+    //     console.log("Api Response [PlaySessionAudio]: ", JSON.stringify(response, null, 2));
+    //     return response;
+    // }
 }
 
 
