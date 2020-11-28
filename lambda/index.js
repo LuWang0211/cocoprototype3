@@ -78,7 +78,6 @@ const StartSessionApiHandler = {
         console.log("Api Request [StartSession]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
         // First get our request entity and grab the InitExercise passed in the API call
         const args = util.getApiArguments(handlerInput);
-        const InitExercise = args.InitExercise;
         // Store the InitExercise in the session
         // const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
         // sessionAttributes.InitExercise = InitExercise;
@@ -86,7 +85,8 @@ const StartSessionApiHandler = {
         let response = {
             apiResponse: 0
         };
-        
+        /// testing 
+        db.goOnline();
         console.log("Api Response [StartSession]: ", JSON.stringify(response, null, 2));
         return response;
     }
