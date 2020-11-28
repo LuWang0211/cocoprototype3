@@ -174,7 +174,7 @@ const RecordRatingApiHandler = {
         // Provide different responses based on rating score
         console.log("userrating", userrating);
         if (userrating === 4 || userrating === 5){
-            const result = await ref.set(string_rating);
+            const result = await ref.set(JSON.stringify(userrating));
             db.goOffline();
             console.log("High Rating");
             let resp_for_high_rating = [
@@ -186,7 +186,7 @@ const RecordRatingApiHandler = {
                 apiResponse: resp_for_high_rating[Math.floor(Math.random() * resp_for_high_rating.length)]
             };
         } else if (userrating === 1 || userrating === 2 || userrating === 3) {
-            const result = await ref.set(string_rating);
+            const result = await ref.set(JSON.stringify(userrating));
             db.goOffline();
             console.log("Low Rating");
             let resp_for_low_rating = [
