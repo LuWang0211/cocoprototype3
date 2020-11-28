@@ -102,19 +102,26 @@ const PlaySessionAudioeApiHandler = {
                 
         console.log("Api Request [PlaySessionAudio]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
         // const db = firebase.database();
-        try {
-            console.log("db before:", db);
-            const ref_audio = db.ref('LastRecommendedResource');
-            const data_snapshot_audio = await ref_audio.once('value');
-            // const data_snapshot_rating = await ref_rating.once('value');
-            const result_audio = data_snapshot_audio.val();
-            // const result_rating = data_snapshot_rating.val();
-            // release db
-    
-            db.goOffline();
-            // console.log("db", db);
-            console.log("audio: ", result_audio);
-            console.log("db after:", db);
+        console.log("db before:", db);
+        const ref_audio = db.ref('LastRecommendedResource');
+        // let ref_rating = db.ref('LastRatingScore');
+        
+        let response = {
+            apiResponse: ''
+        };
+        
+        const data_snapshot_audio = await ref_audio.once('value');
+        // const data_snapshot_rating = await ref_rating.once('value');
+        const result_audio = data_snapshot_audio.val();
+        // const result_rating = data_snapshot_rating.val();
+        // release db
+
+        db.goOffline();
+        // console.log("db", db);
+        console.log("audio: ", result_audio);
+        console.log("db after:", db);
+        // console.log("rating ", result_rating);
+        try{
             let Uri = result_audio.audiouri;
             // let Rating = result_rating;
             console.log('get firebase data URI', Uri)
@@ -123,14 +130,22 @@ const PlaySessionAudioeApiHandler = {
             response = {
                 apiResponse: Uri
             };
-        // console.log("rating ", result_rating);
-        } catch(e) {
-            console.log("db error", e)
+            
+            // if (Rating === '4' || Rating === '5') {
+            //     console.log("High Rating Resource")
+            //     response = {
+            //         apiResponse: Uri
+            //     };
+            // } else {
+            //     console.log("Low Rating Resource")
+            //     response = {
+            //         apiResponse: 'https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/final_resources/4min_meditation.mp3' // for testing
+            //     };
+            // }
+
+        }catch(e){
+            console.log("get firebase data URI ERROR", e)
         }
-        
-        let response = {
-            apiResponse: ''
-        };
 
         console.log("Api Response [PlaySessionAudio]: ", JSON.stringify(response, null, 2));
         return response;
