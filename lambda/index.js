@@ -199,7 +199,7 @@ const RecordRatingApiHandler = {
             };
         } else {
             console.log("Out of Rating Range");
-            const result = await ref.set('data_snapshot_rating');
+            // const result = await ref.set('data_snapshot_rating');
             db.goOffline();
             response = {
                 apiResponse: 'Sorry, please using a number between one to five!'
