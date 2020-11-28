@@ -701,7 +701,6 @@ exports.handler = Alexa.SkillBuilders.custom()
         // RecordColorApiHandler,
         // GetFavoriteColorApiHandler,
         // IntroToAlexaConversationsButtonEventHandler,
-        testingHandler,
         GetInitialInformationApiHandler,
         StartSessionApiHandler,
         PlaySessionAudioeApiHandler,
