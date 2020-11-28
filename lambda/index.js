@@ -364,7 +364,43 @@ const RequestGetInitialInformationArgViewViewHandler = {
         return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'RequestGetInitialInformationArgView';
     },
     handle(handlerInput){
-       console.log('IntroToAlexaConversationsTempEventHandler')
+       console.log('RequestGetInitialInformationArgViewViewHandler')
+       return handlerInput.responseBuilder
+                .addDirective({
+                    type: 'Dialog.DelegateRequest',
+                    target: 'AMAZON.Conversations',
+                    period: {
+                        until: 'EXPLICIT_RETURN' 
+                    },
+                })
+                .getResponse();
+    }
+}
+
+const ConfirmGetInitialInformationAPIViewViewHandler = {
+    canHandle(handlerInput){
+        return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'ConfirmGetInitialInformationAPIView';
+    },
+    handle(handlerInput){
+       console.log('ConfirmGetInitialInformationAPIViewViewHandler')
+       return handlerInput.responseBuilder
+                .addDirective({
+                    type: 'Dialog.DelegateRequest',
+                    target: 'AMAZON.Conversations',
+                    period: {
+                        until: 'EXPLICIT_RETURN' 
+                    },
+                })
+                .getResponse();
+    }
+}
+
+const GetInitialInformationSuccessViewViewHandler = {
+    canHandle(handlerInput){
+        return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'GetInitialInformationSuccessView';
+    },
+    handle(handlerInput){
+       console.log('GetInitialInformationSuccessViewViewHandler')
        return handlerInput.responseBuilder
                 .addDirective({
                     type: 'Dialog.DelegateRequest',
@@ -379,10 +415,82 @@ const RequestGetInitialInformationArgViewViewHandler = {
 
 const StartSessionSuccessViewHandler = {
     canHandle(handlerInput){
-        return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'StartSessionSuccessView';
+        return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'StartSessionSuccessView_New';
     },
     handle(handlerInput){
-       console.log('IntroToAlexaConversationsTempEventHandler')
+       console.log('StartSessionSuccessViewHandler')
+       return handlerInput.responseBuilder
+                .addDirective({
+                    type: 'Dialog.DelegateRequest',
+                    target: 'AMAZON.Conversations',
+                    period: {
+                        until: 'EXPLICIT_RETURN' 
+                    },
+                })
+                .getResponse();
+    }
+}
+
+const PlaySessionAudioSuccessViewHandler = {
+    canHandle(handlerInput){
+        return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'PlaySessionAudioSuccessView';
+    },
+    handle(handlerInput){
+       console.log('PlaySessionAudioSuccessViewHandler')
+       return handlerInput.responseBuilder
+                .addDirective({
+                    type: 'Dialog.DelegateRequest',
+                    target: 'AMAZON.Conversations',
+                    period: {
+                        until: 'EXPLICIT_RETURN' 
+                    },
+                })
+                .getResponse();
+    }
+}
+
+const RequestRecordRatingArgViewHandler = {
+    canHandle(handlerInput){
+        return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'RequestRecordRatingArgView';
+    },
+    handle(handlerInput){
+       console.log('RequestRecordRatingArgViewHandler')
+       return handlerInput.responseBuilder
+                .addDirective({
+                    type: 'Dialog.DelegateRequest',
+                    target: 'AMAZON.Conversations',
+                    period: {
+                        until: 'EXPLICIT_RETURN' 
+                    },
+                })
+                .getResponse();
+    }
+}
+
+const RecordRatingSuccessViewHandler = {
+    canHandle(handlerInput){
+        return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'RecordRatingSuccessView';
+    },
+    handle(handlerInput){
+       console.log('RecordRatingSuccessViewHandler')
+       return handlerInput.responseBuilder
+                .addDirective({
+                    type: 'Dialog.DelegateRequest',
+                    target: 'AMAZON.Conversations',
+                    period: {
+                        until: 'EXPLICIT_RETURN' 
+                    },
+                })
+                .getResponse();
+    }
+}
+
+const TryOthersSuccessViewHandler = {
+    canHandle(handlerInput){
+        return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'TryOthersSuccessView';
+    },
+    handle(handlerInput){
+       console.log('TryOthersSuccessViewHandler')
        return handlerInput.responseBuilder
                 .addDirective({
                     type: 'Dialog.DelegateRequest',
@@ -397,10 +505,10 @@ const StartSessionSuccessViewHandler = {
 
 const EndSessionVisualViewHandler = {
     canHandle(handlerInput){
-        return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'EndSessionVisualView';
+        return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'EndSessionVisualViewNew';
     },
     handle(handlerInput){
-       console.log('IntroToAlexaConversationsTempEventHandler')
+       console.log('EndSessionVisualViewHandler')
        return handlerInput.responseBuilder
                 .addDirective({
                     type: 'Dialog.DelegateRequest',
