@@ -174,7 +174,7 @@ const RecordRatingApiHandler = {
         console.log("userrating", userrating);
         if (userrating === 4 || userrating === 5){
             const result = await ref.set(JSON.stringify(userrating));
-            db.goOffline();
+            // db.goOffline();
             console.log("High Rating");
             let resp_for_high_rating = [
                 'I am glad you like the exercise! Do you want to do it again, try another exercise or end the session?',
@@ -186,7 +186,7 @@ const RecordRatingApiHandler = {
             };
         } else if (userrating === 1 || userrating === 2 || userrating === 3) {
             const result = await ref.set(JSON.stringify(userrating));
-            db.goOffline();
+            // db.goOffline();
             console.log("Low Rating");
             let resp_for_low_rating = [
                 'I am sorry you do not like the exercise that much. Would you like to try other exercises or end the session?',
@@ -199,7 +199,7 @@ const RecordRatingApiHandler = {
         } else {
             console.log("Out of Rating Range");
             // const result = await ref.set('data_snapshot_rating');
-            db.goOffline();
+            // db.goOffline();
             response = {
                 apiResponse: 'Sorry, please using a number between one to five!'
             };
