@@ -359,6 +359,24 @@ const WelcomeVisualTempHandler = {
     }
 }
 
+const StartSessionSuccessViewHandler = {
+    canHandle(handlerInput){
+        return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'StartSessionSuccessView';
+    },
+    handle(handlerInput){
+       console.log('IntroToAlexaConversationsTempEventHandler')
+       return handlerInput.responseBuilder
+                .addDirective({
+                    type: 'Dialog.DelegateRequest',
+                    target: 'AMAZON.Conversations',
+                    period: {
+                        until: 'EXPLICIT_RETURN' 
+                    },
+                })
+                .getResponse();
+    }
+}
+
 const EndSessionVisualViewHandler = {
     canHandle(handlerInput){
         return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'EndSessionVisualView';
