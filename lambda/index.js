@@ -45,7 +45,7 @@ const GetInitialInformationApiHandler = {
     canHandle(handlerInput) {
         return util.isApiRequest(handlerInput, 'GetInitialInformation');
     },
-    async handle(handlerInput) {
+    handle(handlerInput) {
         console.log("Api Request [GetInitialInformation]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
         // First get our request entity and grab the availabletime passed in the API call
         const args = util.getApiArguments(handlerInput);
