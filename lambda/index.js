@@ -31,6 +31,8 @@ firebase.initializeApp({
     appId: '1:901645805895:android:6174bbf516f640c0960462',
 });
 
+        
+const db = firebase.database();
 /**
  * API Handler for RecordColor API
  * 
@@ -158,8 +160,7 @@ const RecordRatingApiHandler = {
         // Store the Rating in the session
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
         sessionAttributes.userrating = userrating;
-        
-        var db = firebase.database();
+
         var ref = db.ref('LastRatingScore');
         // const data_snapshot_rating = await ref.once('value');
         // db.goOffline();
