@@ -164,7 +164,7 @@ const RecordRatingApiHandler = {
         
         // console.log("db", db);
         // console.log("ref", ref);
-        const result = await ref.set(userrating.toString());
+        const result = await ref.set(userrating);
         
         db.goOffline();
         
