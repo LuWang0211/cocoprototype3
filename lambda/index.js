@@ -102,7 +102,6 @@ const PlaySessionAudioeApiHandler = {
                 
         console.log("Api Request [PlaySessionAudio]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
         // const db = firebase.database();
-        db.goOnline();
         
         console.log("db before:", db);
         const ref_audio = db.ref('LastRecommendedResource');
