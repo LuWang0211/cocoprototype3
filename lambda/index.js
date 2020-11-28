@@ -85,8 +85,6 @@ const StartSessionApiHandler = {
         let response = {
             apiResponse: 0
         };
-        /// testing 
-        db.goOnline();
         console.log("Api Response [StartSession]: ", JSON.stringify(response, null, 2));
         return response;
     }
