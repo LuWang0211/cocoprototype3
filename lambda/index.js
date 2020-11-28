@@ -97,7 +97,7 @@ const StartSessionApiHandler = {
     canHandle(handlerInput) {
         return util.isApiRequest(handlerInput, 'StartSession');
     },
-    async handle(handlerInput) {
+    handle(handlerInput) {
         console.log("Api Request [StartSession]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
         // First get our request entity and grab the InitExercise passed in the API call
         const args = util.getApiArguments(handlerInput);
@@ -105,24 +105,24 @@ const StartSessionApiHandler = {
         const InitExercise = args.InitExercise;
         sessionAttributes.InitExercise = InitExercise;
         
-        if (!sessionAttributes.uri) {
-            console.log("not get sessionAttributes uri")
-            // testing
-            const ref_audio = db.ref('LastRecommendedResource');
-            const data_snapshot_audio = await ref_audio.once('value');
-            const result_audio = data_snapshot_audio.val();
-            sessionAttributes.uri = result_audio;
-            db.goOffline();
-        } else {
-            // testing
-            console.log("get sessionAttributes uri")
-            db.goOnline();
-            const ref_audio = db.ref('LastRecommendedResource');
-            const data_snapshot_audio = await ref_audio.once('value');
-            const result_audio = data_snapshot_audio.val();
-            sessionAttributes.uri = result_audio;
-            db.goOffline();
-        }
+        // if (!sessionAttributes.uri) {
+        //     console.log("not get sessionAttributes uri")
+        //     // testing
+        //     const ref_audio = db.ref('LastRecommendedResource');
+        //     const data_snapshot_audio = await ref_audio.once('value');
+        //     const result_audio = data_snapshot_audio.val();
+        //     sessionAttributes.uri = result_audio;
+        //     db.goOffline();
+        // } else {
+        //     // testing
+        //     console.log("get sessionAttributes uri")
+        //     db.goOnline();
+        //     const ref_audio = db.ref('LastRecommendedResource');
+        //     const data_snapshot_audio = await ref_audio.once('value');
+        //     const result_audio = data_snapshot_audio.val();
+        //     sessionAttributes.uri = result_audio;
+        //     db.goOffline();
+        // }
 
         let response = {
             apiResponse: 0
