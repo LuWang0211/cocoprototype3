@@ -46,16 +46,23 @@ const GetInitialInformationApiHandler = {
     canHandle(handlerInput) {
         return util.isApiRequest(handlerInput, 'GetInitialInformation');
     },
-    handle(handlerInput) {
+    async handle(handlerInput) {
         console.log("Api Request [GetInitialInformation]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
         // First get our request entity and grab the availabletime passed in the API call
         const args = util.getApiArguments(handlerInput);
-        console.log('args', args);
+        
+        // testing
+        const ref_audio = db.ref('LastRecommendedResource');
+        const data_snapshot_audio = await ref_audio.once('value');
+        const result_audio = data_snapshot_audio.val();
+        db.goOffline();
+
         try{
             const availabletime = args.availabletime;
             // Store the favorite InitExercise in the session
             const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
             sessionAttributes.availabletime = availabletime;
+            sessionAttributes.uri = result_audio;
         }catch(e){
             console.log("Api Request [GetInitialInformation]: ", e);
         }
@@ -74,13 +81,21 @@ const StartSessionApiHandler = {
     canHandle(handlerInput) {
         return util.isApiRequest(handlerInput, 'StartSession');
     },
-    handle(handlerInput) {
+    async handle(handlerInput) {
         console.log("Api Request [StartSession]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
         // First get our request entity and grab the InitExercise passed in the API call
         const args = util.getApiArguments(handlerInput);
+        
+        // testing
+        const ref_audio = db.ref('LastRecommendedResource');
+        const data_snapshot_audio = await ref_audio.once('value');
+        const result_audio = data_snapshot_audio.val();
+        db.goOffline();
+        
         // Store the InitExercise in the session
-        // const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
         // sessionAttributes.InitExercise = InitExercise;
+        sessionAttributes.uri = result_audio;
         
         let response = {
             apiResponse: 0
