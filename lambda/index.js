@@ -90,7 +90,8 @@ const StartSessionApiHandler = {
         console.log("Api Request [StartSession]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
         // First get our request entity and grab the InitExercise passed in the API call
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-        if (sessionAttributes.uri) {
+        sessionAttributes.uri = '';
+        if (sessionAttributes.uri !== '') {
             console.log("get uri")
             // testing
             const ref_audio = db.ref('LastRecommendedResource');
