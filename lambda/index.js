@@ -62,24 +62,24 @@ const GetInitialInformationApiHandler = {
         // sessionAttributes.availabletime = availabletime;
         // sessionAttributes.uri = result_audio;
         
-        if (!sessionAttributes.uri) {
-            console.log("not get sessionAttributes uri")
-            // testing
-            const ref_audio = db.ref('LastRecommendedResource');
-            const data_snapshot_audio = await ref_audio.once('value');
-            const result_audio = data_snapshot_audio.val();
-            sessionAttributes.uri = result_audio;
-            db.goOffline();
-        } else {
-            // testing
-            console.log("get sessionAttributes uri")
-            db.goOnline();
-            const ref_audio = db.ref('LastRecommendedResource');
-            const data_snapshot_audio = await ref_audio.once('value');
-            const result_audio = data_snapshot_audio.val();
-            sessionAttributes.uri = result_audio;
-            db.goOffline();
-        }
+        // if (!sessionAttributes.uri) {
+        //     console.log("not get sessionAttributes uri")
+        //     // testing
+        //     const ref_audio = db.ref('LastRecommendedResource');
+        //     const data_snapshot_audio = await ref_audio.once('value');
+        //     const result_audio = data_snapshot_audio.val();
+        //     sessionAttributes.uri = result_audio;
+        //     db.goOffline();
+        // } else {
+        //     // testing
+        //     console.log("get sessionAttributes uri")
+        //     db.goOnline();
+        //     const ref_audio = db.ref('LastRecommendedResource');
+        //     const data_snapshot_audio = await ref_audio.once('value');
+        //     const result_audio = data_snapshot_audio.val();
+        //     sessionAttributes.uri = result_audio;
+        //     db.goOffline();
+        // }
         
         sessionAttributes.availabletime = availabletime;
         
