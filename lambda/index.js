@@ -42,27 +42,40 @@ const db = firebase.database();
  */
  
 // GetInitialInformation
-const GetInitialInformationApiHandler = {
-    canHandle(handlerInput) {
-        return util.isApiRequest(handlerInput, 'GetInitialInformation');
+
+const testingHandler = {
+    canHandle(handlerInput){
+        return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
     },
-    async handle(handlerInput) {
-        console.log("Api Request [GetInitialInformation]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
-        // First get our request entity and grab the availabletime passed in the API call
-        const args = util.getApiArguments(handlerInput);
-        
+    async handle(handlerInput){
+        console.log('testingHandler')
+              
         // testing
         const ref_audio = db.ref('LastRecommendedResource');
         const data_snapshot_audio = await ref_audio.once('value');
         const result_audio = data_snapshot_audio.val();
         db.goOffline();
+        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        sessionAttributes.uri = result_audio;
+      return handlerInput.responseBuilder
+            .getResponse();
+    }
+}
 
+
+const GetInitialInformationApiHandler = {
+    canHandle(handlerInput) {
+        return util.isApiRequest(handlerInput, 'GetInitialInformation');
+    },
+    handle(handlerInput) {
+        console.log("Api Request [GetInitialInformation]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
+        // First get our request entity and grab the availabletime passed in the API call
+        const args = util.getApiArguments(handlerInput);
         try{
             const availabletime = args.availabletime;
             // Store the favorite InitExercise in the session
             const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
             sessionAttributes.availabletime = availabletime;
-            sessionAttributes.uri = result_audio;
         }catch(e){
             console.log("Api Request [GetInitialInformation]: ", e);
         }
@@ -81,22 +94,15 @@ const StartSessionApiHandler = {
     canHandle(handlerInput) {
         return util.isApiRequest(handlerInput, 'StartSession');
     },
-    async handle(handlerInput) {
+    handle(handlerInput) {
         console.log("Api Request [StartSession]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
         // First get our request entity and grab the InitExercise passed in the API call
         const args = util.getApiArguments(handlerInput);
-        
-        // testing
-        const ref_audio = db.ref('LastRecommendedResource');
-        const data_snapshot_audio = await ref_audio.once('value');
-        const result_audio = data_snapshot_audio.val();
-        db.goOffline();
-        
+
         // Store the InitExercise in the session
-        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        // const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
         // sessionAttributes.InitExercise = InitExercise;
-        sessionAttributes.uri = result_audio;
-        
+
         let response = {
             apiResponse: 0
         };
@@ -681,6 +687,7 @@ exports.handler = Alexa.SkillBuilders.custom()
         // RecordColorApiHandler,
         // GetFavoriteColorApiHandler,
         // IntroToAlexaConversationsButtonEventHandler,
+        testingHandler,
         GetInitialInformationApiHandler,
         StartSessionApiHandler,
         PlaySessionAudioeApiHandler,
