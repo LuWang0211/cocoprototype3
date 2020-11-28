@@ -513,8 +513,9 @@ exports.handler = Alexa.SkillBuilders.custom()
         ProvideFeedbackApiHandler,
         TryOthersApiHandler,
         FallbackIntentHandler,
-        IntroToAlexaConversationsTempEventHandler,
+        // IntroToAlexaConversationsTempEventHandler,
         WelcomeVisualTempHandler,
+        StartSessionSuccessViewHandler,
         EndSessionVisualViewHandler,
         SessionEndedRequestHandler
     )
