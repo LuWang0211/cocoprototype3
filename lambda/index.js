@@ -341,7 +341,23 @@ const IntroToAlexaConversationsTempEventHandler = {
     }
 }
 
-
+const WelcomeVisualTempHandler = {
+    canHandle(handlerInput){
+        return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'WelcomeVisualTemp';
+    },
+    handle(handlerInput){
+       console.log('IntroToAlexaConversationsTempEventHandler')
+       return handlerInput.responseBuilder
+                .addDirective({
+                    type: 'Dialog.DelegateRequest',
+                    target: 'AMAZON.Conversations',
+                    period: {
+                        until: 'EXPLICIT_RETURN' 
+                    },
+                })
+                .getResponse();
+    }
+}
 
 
 /**
