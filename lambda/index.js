@@ -101,11 +101,8 @@ const StartSessionApiHandler = {
         console.log("Api Request [StartSession]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
         // First get our request entity and grab the InitExercise passed in the API call
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-        // try{
-        //     "sessionAttributes.uri"
-        // }catch(e){
-        //     console.log(e)
-        // }
+        // sessionAttributes.InitExercise = InitExercise;
+        
         if (!sessionAttributes.uri) {
             console.log("not get sessionAttributes uri")
             // testing
@@ -124,14 +121,6 @@ const StartSessionApiHandler = {
             sessionAttributes.uri = result_audio;
             db.goOffline();
         }
-        
-        // const args = util.getApiArguments(handlerInput);
-        // const ref_audio = db.ref('LastRecommendedResource');
-        // const data_snapshot_audio = ref_audio.once('value');
-
-        // Store the InitExercise in the session
-        // const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-        // sessionAttributes.InitExercise = InitExercise;
 
         let response = {
             apiResponse: 0
