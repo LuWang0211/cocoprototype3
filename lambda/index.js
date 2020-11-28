@@ -101,8 +101,8 @@ const PlaySessionAudioeApiHandler = {
     },
     async handle(handlerInput) {
         console.log("Api Request [PlaySessionAudio]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
-        var ref_audio = db.ref('LastRecommendedResource');
-        var ref_rating = db.ref('LastRatingScore');
+        let ref_audio = db.ref('LastRecommendedResource');
+        let ref_rating = db.ref('LastRatingScore');
         
         let response = {
             apiResponse: ''
