@@ -153,6 +153,7 @@ const RecordRatingApiHandler = {
         // First get our request entity and grab the rating passed in the API call
         const args = util.getApiArguments(handlerInput);
         const userrating = args.userrating;
+        const string_rating = userrating.toString();
         console.log('args.userrating', args.userrating);
         
         // Store the Rating in the session
@@ -161,6 +162,7 @@ const RecordRatingApiHandler = {
         
         var db = firebase.database();
         var ref = db.ref('LastRatingScore');
+        
         // console.log("db", db);
         // console.log("ref", ref);
         
@@ -171,7 +173,7 @@ const RecordRatingApiHandler = {
         // Provide different responses based on rating score
         console.log("userrating", userrating);
         if (userrating === 4 || userrating === 5){
-            const result = await ref.set(userrating);
+            const result = await ref.set(string_rating);
             db.goOffline();
             
             console.log("High Rating");
@@ -184,7 +186,7 @@ const RecordRatingApiHandler = {
                 apiResponse: resp_for_high_rating[Math.floor(Math.random() * resp_for_high_rating.length)]
             };
         } else if (userrating === 1 || userrating === 2 || userrating === 3) {
-            const result = await ref.set(userrating);
+            const result = await ref.set(string_rating);
             db.goOffline();
             
             console.log("Low Rating");
