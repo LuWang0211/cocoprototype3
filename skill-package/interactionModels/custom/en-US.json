@@ -1,0 +1,191 @@
+{
+  "interactionModel": {
+    "languageModel": {
+      "invocationName": "coco innovation",
+      "intents": [
+        {
+          "name": "AMAZON.CancelIntent",
+          "samples": [
+            "cancel this"
+          ]
+        },
+        {
+          "name": "AMAZON.HelpIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.StopIntent",
+          "samples": [
+            "end session",
+            "Ended",
+            "End the Session",
+            "stop"
+          ]
+        },
+        {
+          "name": "AMAZON.NavigateHomeIntent",
+          "samples": []
+        },
+        {
+          "name": "AMAZON.FallbackIntent",
+          "samples": []
+        },
+        {
+          "name": "SetFavoriteColorIntent",
+          "slots": [
+            {
+              "name": "color",
+              "type": "AMAZON.Color"
+            }
+          ],
+          "samples": [
+            "I love {color}",
+            "my favorite color is {color}"
+          ]
+        },
+        {
+          "name": "GetFavoriteColorIntent",
+          "slots": [],
+          "samples": [
+            "what is my favorite color"
+          ]
+        }
+      ],
+      "types": [
+        {
+          "values": [
+            {
+              "name": {
+                "value": "https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/final_resources/TenThingsThatWorkedForMeIn2020.mp3"
+              }
+            },
+            {
+              "name": {
+                "value": "https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/final_resources/6min_meditation.mp3"
+              }
+            },
+            {
+              "name": {
+                "value": "https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/final_resources/4min_meditation.mp3"
+              }
+            },
+            {
+              "name": {
+                "value": "https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/final_resources/3min_meditation.mp3"
+              }
+            },
+            {
+              "name": {
+                "value": "https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/final_resources/RelaxationForCaregiversMindfulnesaMeditation.mp3"
+              }
+            }
+          ],
+          "name": "URL"
+        },
+        {
+          "values": [
+            {
+              "name": {
+                "value": "music",
+                "synonyms": [
+                  "musics"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "calming sound",
+                "synonyms": [
+                  "calm sound",
+                  "sounds",
+                  "calming sounds",
+                  "calming voice"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "square breathing",
+                "synonyms": [
+                  "breathing exercise",
+                  "breathing"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "meditation"
+              }
+            },
+            {
+              "name": {
+                "value": "session"
+              }
+            }
+          ],
+          "name": "FavoriteExercise"
+        },
+        {
+          "values": [
+            {
+              "name": {
+                "value": "Great!"
+              }
+            },
+            {
+              "name": {
+                "value": "I am glad you like it"
+              }
+            }
+          ],
+          "name": "RatingRespSlots"
+        },
+        {
+          "values": [
+            {
+              "name": {
+                "value": "nervous",
+                "synonyms": [
+                  "oversensitive"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "sad",
+                "synonyms": [
+                  "unhappy"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "anxious",
+                "synonyms": [
+                  "anxiouty"
+                ]
+              }
+            },
+            {
+              "name": {
+                "value": "stressed",
+                "synonyms": [
+                  "stress",
+                  "stresses",
+                  "stressing"
+                ]
+              }
+            }
+          ],
+          "name": "InitialEmotionalState"
+        }
+      ],
+      "modelConfiguration": {
+        "fallbackIntentSensitivity": {
+          "level": "LOW"
+        }
+      }
+    }
+  },
+  "version": "4"
+}
