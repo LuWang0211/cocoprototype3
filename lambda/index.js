@@ -31,8 +31,7 @@ firebase.initializeApp({
     appId: '1:901645805895:android:6174bbf516f640c0960462',
 });
 
-        
-const db = firebase.database();
+let db = firebase.database();
 /**
  * API Handler for RecordColor API
  * 
