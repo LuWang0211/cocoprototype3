@@ -173,7 +173,7 @@ const PlaySessionAudioeApiHandler = {
         };
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
         if (sessionAttributes.uri){
-            var uri = sessionAttributes.uri;
+            var uri = sessionAttributes.uri.audiouri;
         } else {
             console.log('testing haha ')
         }
