@@ -150,7 +150,7 @@ const RecordRatingApiHandler = {
     canHandle(handlerInput) {
         return util.isApiRequest(handlerInput, 'RecordRating');
     },
-    async handle(handlerInput) {
+    handle(handlerInput) {
         console.log("Api Request [RecordRating]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
         // First get our request entity and grab the rating passed in the API call
         const args = util.getApiArguments(handlerInput);
@@ -161,12 +161,6 @@ const RecordRatingApiHandler = {
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
         sessionAttributes.userrating = userrating;
 
-        var ref = db.ref('LastRatingScore');
-        // const data_snapshot_rating = await ref.once('value');
-        // db.goOffline();
-        // console.log("db", db);
-        // console.log("ref", ref);
-        
         let response = {
             apiResponse: ''
         };
@@ -174,8 +168,6 @@ const RecordRatingApiHandler = {
         // Provide different responses based on rating score
         console.log("userrating", userrating);
         if (userrating === 4 || userrating === 5){
-            const result = await ref.set(JSON.stringify(userrating));
-            db.goOffline();
             console.log("High Rating");
             let resp_for_high_rating = [
                 'I am glad you like the exercise! Do you want to do it again, try another exercise or end the session?',
@@ -186,8 +178,6 @@ const RecordRatingApiHandler = {
                 apiResponse: resp_for_high_rating[Math.floor(Math.random() * resp_for_high_rating.length)]
             };
         } else if (userrating === 1 || userrating === 2 || userrating === 3) {
-            const result = await ref.set(JSON.stringify(userrating));
-            db.goOffline();
             console.log("Low Rating");
             let resp_for_low_rating = [
                 'I am sorry you do not like the exercise that much. Would you like to try other exercises or end the session?',
@@ -199,8 +189,6 @@ const RecordRatingApiHandler = {
             };
         } else {
             console.log("Out of Rating Range");
-            const result = await ref.set('data_snapshot_rating');
-            // db.goOffline();
             response = {
                 apiResponse: 'Sorry, please using a number between one to five!'
             };
