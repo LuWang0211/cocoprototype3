@@ -161,12 +161,8 @@ const RecordRatingApiHandler = {
         
         var db = firebase.database();
         var ref = db.ref('LastRatingScore');
-        
         // console.log("db", db);
         // console.log("ref", ref);
-        const result = await ref.set(userrating);
-        
-        db.goOffline();
         
         let response = {
             apiResponse: ''
@@ -175,17 +171,22 @@ const RecordRatingApiHandler = {
         // Provide different responses based on rating score
         console.log("userrating", userrating);
         if (userrating === 4 || userrating === 5){
+            const result = await ref.set(userrating);
+            db.goOffline();
+            
             console.log("High Rating");
             let resp_for_high_rating = [
                 'I am glad you like the exercise! Do you want to do it again, try another exercise or end the session?',
                 'That’s awesome! I’m glad you like it! Do you want to practice it again, try another exercise or end the session?'
             ];
-            
             // random choice
             response = {
                 apiResponse: resp_for_high_rating[Math.floor(Math.random() * resp_for_high_rating.length)]
             };
         } else if (userrating === 1 || userrating === 2 || userrating === 3) {
+            const result = await ref.set(userrating);
+            db.goOffline();
+            
             console.log("Low Rating");
             let resp_for_low_rating = [
                 'I am sorry you do not like the exercise that much. Would you like to try other exercises or end the session?',
