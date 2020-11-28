@@ -232,8 +232,8 @@ const ProvideFeedbackApiHandler = {
             console.log("Api Request [ProvideFeedback] Inpurt: ", e);
         }
         
-        var db = firebase.database();
-        var ref = db.ref('Alexa/Feedback');
+        let db = firebase.database();
+        let ref = db.ref('Alexa/Feedback');
         
         // console.log("db", db);
         const result = await ref.set(feedback);
