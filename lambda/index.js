@@ -329,7 +329,7 @@ const IntroToAlexaConversationsTempEventHandler = {
         // console.log('handlerInput.requestEnvelope.request.arguments', JSON.stringify(handlerInput.requestEnvelope.request.arguments));
         // return Alexa.getRequestType(handlerInput.requestEnvelope) === 'Alexa.Presentation.APL.UserEvent'
         // && handlerInput.requestEnvelope.request.arguments[0] === 'StartSession';
-        return handlerInput.requestEnvelope.request.type === 'LaunchRequest'&& handlerInput.requestEnvelope.request.arguments[0] === 'TestingVisualArgument';
+        return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'TestingVisualArgument';
     },
     handle(handlerInput){
        console.log('IntroToAlexaConversationsTempEventHandler')
