@@ -111,54 +111,81 @@ const PlaySessionAudioeApiHandler = {
     canHandle(handlerInput) {
         return util.isApiRequest(handlerInput, 'PlaySessionAudio');
     },
-    async handle(handlerInput) {
+    // async handle(handlerInput) {
+                
+    //     console.log("Api Request [PlaySessionAudio]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
+    //     // const db = firebase.database();
+        
+    //     console.log("db before:", db);
+    //     const ref_audio = db.ref('LastRecommendedResource');
+    //     // let ref_rating = db.ref('LastRatingScore');
+        
+    //     let response = {
+    //         apiResponse: ''
+    //     };
+        
+    //     const data_snapshot_audio = await ref_audio.once('value');
+    //     // const data_snapshot_rating = await ref_rating.once('value');
+    //     const result_audio = data_snapshot_audio.val();
+    //     // const result_rating = data_snapshot_rating.val();
+    //     // release db
+
+    //     db.goOffline();
+    //     // console.log("db", db);
+    //     console.log("audio: ", result_audio);
+    //     console.log("db after:", db);
+    //     // console.log("rating ", result_rating);
+    //     try{
+    //         let Uri = result_audio.audiouri;
+    //         // let Rating = result_rating;
+    //         console.log('get firebase data URI', Uri)
+    //         // console.log('get firebase data Rating', Rating)
+            
+    //         response = {
+    //             apiResponse: Uri
+    //         };
+            
+    //         // if (Rating === '4' || Rating === '5') {
+    //         //     console.log("High Rating Resource")
+    //         //     response = {
+    //         //         apiResponse: Uri
+    //         //     };
+    //         // } else {
+    //         //     console.log("Low Rating Resource")
+    //         //     response = {
+    //         //         apiResponse: 'https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/final_resources/4min_meditation.mp3' // for testing
+    //         //     };
+    //         // }
+
+    //     }catch(e){
+    //         console.log("get firebase data URI ERROR", e)
+    //     }
+
+    //     console.log("Api Response [PlaySessionAudio]: ", JSON.stringify(response, null, 2));
+    //     return response;
+    // }
+    handle(handlerInput) {
                 
         console.log("Api Request [PlaySessionAudio]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
-        // const db = firebase.database();
-        
-        console.log("db before:", db);
-        const ref_audio = db.ref('LastRecommendedResource');
-        // let ref_rating = db.ref('LastRatingScore');
         
         let response = {
             apiResponse: ''
         };
-        
-        const data_snapshot_audio = await ref_audio.once('value');
-        // const data_snapshot_rating = await ref_rating.once('value');
-        const result_audio = data_snapshot_audio.val();
-        // const result_rating = data_snapshot_rating.val();
-        // release db
-
-        db.goOffline();
-        // console.log("db", db);
-        console.log("audio: ", result_audio);
-        console.log("db after:", db);
-        // console.log("rating ", result_rating);
+        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        if (sessionAttributes.uri){
+            var uri = sessionAttributes.uri;
+        } else {
+            console.log('testing haha ')
+        }
         try{
-            let Uri = result_audio.audiouri;
-            // let Rating = result_rating;
-            console.log('get firebase data URI', Uri)
-            // console.log('get firebase data Rating', Rating)
-            
+            let Uri = uri;
+
             response = {
                 apiResponse: Uri
             };
-            
-            // if (Rating === '4' || Rating === '5') {
-            //     console.log("High Rating Resource")
-            //     response = {
-            //         apiResponse: Uri
-            //     };
-            // } else {
-            //     console.log("Low Rating Resource")
-            //     response = {
-            //         apiResponse: 'https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/final_resources/4min_meditation.mp3' // for testing
-            //     };
-            // }
 
         }catch(e){
-            console.log("get firebase data URI ERROR", e)
+            console.log("session data", e)
         }
 
         console.log("Api Response [PlaySessionAudio]: ", JSON.stringify(response, null, 2));
