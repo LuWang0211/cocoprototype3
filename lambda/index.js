@@ -204,11 +204,7 @@ const RecordRatingApiHandler = {
                 apiResponse: 'Sorry, please using a number between one to five!'
             };
         }
-        
 
-        
-        
-        
         console.log("Api Response [RecordRating]: ", JSON.stringify(response, null, 2));
         return response;
     }
