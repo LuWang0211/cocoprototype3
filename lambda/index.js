@@ -41,7 +41,6 @@ const db = firebase.database();
  * See https://developer.amazon.com/en-US/docs/alexa/conversations/handle-api-calls.html
  */
  
-// GetInitialInformation
 
 const testingHandler = {
     canHandle(handlerInput){
