@@ -118,6 +118,7 @@ const PlaySessionAudioeApiHandler = {
         db.goOffline();
         // console.log("db", db);
         console.log("audio: ", result_audio);
+        console.log("db", db);
         // console.log("rating ", result_rating);
         try{
             let Uri = result_audio.audiouri;
