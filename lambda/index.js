@@ -114,11 +114,11 @@ const PlaySessionAudioeApiHandler = {
         const result_audio = data_snapshot_audio.val();
         // const result_rating = data_snapshot_rating.val();
         // release db
-        // console.log("db", db);
+        console.log("db before:", db);
         db.goOffline();
         // console.log("db", db);
         console.log("audio: ", result_audio);
-        console.log("db", db);
+        console.log("db after:", db);
         // console.log("rating ", result_rating);
         try{
             let Uri = result_audio.audiouri;
