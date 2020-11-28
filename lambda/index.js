@@ -31,7 +31,7 @@ firebase.initializeApp({
     appId: '1:901645805895:android:6174bbf516f640c0960462',
 });
 
-let db = firebase.database();
+const db = firebase.database();
 /**
  * API Handler for RecordColor API
  * 
@@ -107,10 +107,12 @@ const PlaySessionAudioeApiHandler = {
             apiResponse: ''
         };
         
-        let data_snapshot_audio = await ref_audio.once('value');
-        let data_snapshot_rating = await ref_rating.once('value');
-        let result_audio = data_snapshot_audio.val();
-        let result_rating = data_snapshot_rating.val();
+        const db = firebase.database();
+        
+        const data_snapshot_audio = await ref_audio.once('value');
+        const data_snapshot_rating = await ref_rating.once('value');
+        const result_audio = data_snapshot_audio.val();
+        const result_rating = data_snapshot_rating.val();
         // release db
         // console.log("db", db);
         db.goOffline();
