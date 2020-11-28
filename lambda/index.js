@@ -113,14 +113,14 @@ const PlaySessionAudioeApiHandler = {
         const result_audio = data_snapshot_audio.val();
         const result_rating = data_snapshot_rating.val();
         // release db
-        console.log("db", db);
+        // console.log("db", db);
         db.goOffline();
-        console.log("db", db);
+        // console.log("db", db);
         console.log("audio: ", result_audio);
         console.log("rating ", result_rating);
         try{
-            const Uri = result_audio.audiouri;
-            const Rating = result_rating;
+            let Uri = result_audio.audiouri;
+            let Rating = result_rating;
             console.log('get firebase data URI', Uri)
             console.log('get firebase data Rating', Rating)
             
