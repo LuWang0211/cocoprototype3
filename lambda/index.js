@@ -143,6 +143,7 @@ const PlaySessionAudioeApiHandler = {
         let response = {
             apiResponse: ''
         };
+        let Uri = ''
         
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
         
@@ -174,11 +175,18 @@ const PlaySessionAudioeApiHandler = {
 
 
         try{
-            // let Uri = result_audio.audiouri;
-            // let Rating = result_rating;
-            let Uri = sessionAttributes.uri.audiouri
-            console.log('get firebase data URI', Uri)
-            // console.log('get firebase data Rating', Rating)
+            if (!sessionAttributes.userrating) {
+                Uri = sessionAttributes.uri.audiouri
+                console.log('get firebase data URI', Uri)
+            } else {
+                if (sessionAttributes.userrating === 1  || sessionAttributes.userrating === 2 || sessionAttributes.userrating === 3){
+                    Uri = 'https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/final_resources/6min_meditation.mp3'
+                    console.log('get firebase data URI', Uri)
+                } else {
+                    Uri = sessionAttributes.uri.audiouri
+                    console.log('get firebase data URI', Uri)
+                }
+            }
             
             response = {
                 apiResponse: Uri
