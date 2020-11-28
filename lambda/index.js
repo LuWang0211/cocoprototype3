@@ -102,7 +102,7 @@ const PlaySessionAudioeApiHandler = {
                 
         console.log("Api Request [PlaySessionAudio]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
         // const db = firebase.database();
-        if (db) {
+        if (!db) {
             console.log('I am wrong')
         }
         
