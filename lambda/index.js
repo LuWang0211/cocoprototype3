@@ -40,21 +40,6 @@ const db = firebase.database();
  * 
  * See https://developer.amazon.com/en-US/docs/alexa/conversations/handle-api-calls.html
  */
- 
-
-const testingHandler = {
-    canHandle(handlerInput){
-        return handlerInput.requestEnvelope.request.type === 'LaunchRequest';
-    },
-    async handle(handlerInput){
-        console.log('testingHandler')
-              
-
-      return handlerInput.responseBuilder
-            .getResponse();
-    }
-}
-
 
 const GetInitialInformationApiHandler = {
     canHandle(handlerInput) {
@@ -77,6 +62,9 @@ const GetInitialInformationApiHandler = {
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
         sessionAttributes.availabletime = availabletime;
         sessionAttributes.uri = result_audio;
+        if (sessionAttributes.firebase){
+            
+        }
         
         // try{
         //     const availabletime = args.availabletime;
@@ -101,10 +89,12 @@ const StartSessionApiHandler = {
     canHandle(handlerInput) {
         return util.isApiRequest(handlerInput, 'StartSession');
     },
-    handle(handlerInput) {
+    async handle(handlerInput) {
         console.log("Api Request [StartSession]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
         // First get our request entity and grab the InitExercise passed in the API call
         const args = util.getApiArguments(handlerInput);
+        const ref_audio = db.ref('LastRecommendedResource');
+        const data_snapshot_audio = ref_audio.once('value');
 
         // Store the InitExercise in the session
         // const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
