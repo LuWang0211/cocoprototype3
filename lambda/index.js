@@ -333,9 +333,9 @@ const IntroToAlexaConversationsTempEventHandler = {
                     // }
                     type: 'Dialog.DelegateRequest',
                     target: 'AMAZON.Conversations',
-                    period: {
-                        until: 'EXPLICIT_RETURN' 
-                    },
+                    // period: {
+                    //     until: 'EXPLICIT_RETURN' 
+                    // },
                 })
                 .getResponse();
     }
@@ -351,9 +351,9 @@ const WelcomeVisualTempHandler = {
                 .addDirective({
                     type: 'Dialog.DelegateRequest',
                     target: 'AMAZON.Conversations',
-                    period: {
-                        until: 'EXPLICIT_RETURN' 
-                    },
+                    // period: {
+                    //     until: 'EXPLICIT_RETURN' 
+                    // },
                 })
                 .getResponse();
     }
@@ -369,9 +369,9 @@ const RequestGetInitialInformationArgViewViewHandler = {
                 .addDirective({
                     type: 'Dialog.DelegateRequest',
                     target: 'AMAZON.Conversations',
-                    period: {
-                        until: 'EXPLICIT_RETURN' 
-                    },
+                    // period: {
+                    //     until: 'EXPLICIT_RETURN' 
+                    // },
                 })
                 .getResponse();
     }
@@ -387,9 +387,9 @@ const ConfirmGetInitialInformationAPIViewViewHandler = {
                 .addDirective({
                     type: 'Dialog.DelegateRequest',
                     target: 'AMAZON.Conversations',
-                    period: {
-                        until: 'EXPLICIT_RETURN' 
-                    },
+                    // period: {
+                    //     until: 'EXPLICIT_RETURN' 
+                    // },
                 })
                 .getResponse();
     }
@@ -405,9 +405,9 @@ const GetInitialInformationSuccessViewViewHandler = {
                 .addDirective({
                     type: 'Dialog.DelegateRequest',
                     target: 'AMAZON.Conversations',
-                    period: {
-                        until: 'EXPLICIT_RETURN' 
-                    },
+                    // period: {
+                    //     until: 'EXPLICIT_RETURN' 
+                    // },
                 })
                 .getResponse();
     }
@@ -423,9 +423,9 @@ const StartSessionSuccessViewHandler = {
                 .addDirective({
                     type: 'Dialog.DelegateRequest',
                     target: 'AMAZON.Conversations',
-                    period: {
-                        until: 'EXPLICIT_RETURN' 
-                    },
+                    // period: {
+                    //     until: 'EXPLICIT_RETURN' 
+                    // },
                 })
                 .getResponse();
     }
@@ -441,9 +441,9 @@ const PlaySessionAudioSuccessViewHandler = {
                 .addDirective({
                     type: 'Dialog.DelegateRequest',
                     target: 'AMAZON.Conversations',
-                    period: {
-                        until: 'EXPLICIT_RETURN' 
-                    },
+                    // period: {
+                    //     until: 'EXPLICIT_RETURN' 
+                    // },
                 })
                 .getResponse();
     }
@@ -459,9 +459,9 @@ const RequestRecordRatingArgViewHandler = {
                 .addDirective({
                     type: 'Dialog.DelegateRequest',
                     target: 'AMAZON.Conversations',
-                    period: {
-                        until: 'EXPLICIT_RETURN' 
-                    },
+                    // period: {
+                    //     until: 'EXPLICIT_RETURN' 
+                    // },
                 })
                 .getResponse();
     }
@@ -477,9 +477,9 @@ const RecordRatingSuccessViewHandler = {
                 .addDirective({
                     type: 'Dialog.DelegateRequest',
                     target: 'AMAZON.Conversations',
-                    period: {
-                        until: 'EXPLICIT_RETURN' 
-                    },
+                    // period: {
+                    //     until: 'EXPLICIT_RETURN' 
+                    // },
                 })
                 .getResponse();
     }
@@ -495,9 +495,9 @@ const TryOthersSuccessViewHandler = {
                 .addDirective({
                     type: 'Dialog.DelegateRequest',
                     target: 'AMAZON.Conversations',
-                    period: {
-                        until: 'EXPLICIT_RETURN' 
-                    },
+                    // period: {
+                    //     until: 'EXPLICIT_RETURN' 
+                    // },
                 })
                 .getResponse();
     }
@@ -513,9 +513,9 @@ const EndSessionVisualViewHandler = {
                 .addDirective({
                     type: 'Dialog.DelegateRequest',
                     target: 'AMAZON.Conversations',
-                    period: {
-                        until: 'EXPLICIT_RETURN' 
-                    },
+                    // period: {
+                    //     until: 'EXPLICIT_RETURN' 
+                    // },
                 })
                 .getResponse();
     }
