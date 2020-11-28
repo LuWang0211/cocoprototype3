@@ -162,7 +162,8 @@ const RecordRatingApiHandler = {
         
         var db = firebase.database();
         var ref = db.ref('LastRatingScore');
-        const data_snapshot_rating = await ref.once('value');
+        // const data_snapshot_rating = await ref.once('value');
+        // db.goOffline();
         // console.log("db", db);
         // console.log("ref", ref);
         
@@ -198,7 +199,7 @@ const RecordRatingApiHandler = {
             };
         } else {
             console.log("Out of Rating Range");
-            const result = await ref.set(data_snapshot_rating);
+            const result = await ref.set('data_snapshot_rating');
             db.goOffline();
             response = {
                 apiResponse: 'Sorry, please using a number between one to five!'
