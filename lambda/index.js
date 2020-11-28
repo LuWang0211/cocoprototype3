@@ -312,214 +312,214 @@ const ProvideFeedbackApiHandler = {
 //     }
 // }
 
-const IntroToAlexaConversationsTempEventHandler = {
-    canHandle(handlerInput){
-        // console.log(JSON.stringify(handlerInput.requestEnvelope));
-        // console.log('handlerInput.requestEnvelope.request.arguments', JSON.stringify(handlerInput.requestEnvelope.request.arguments));
-        // return Alexa.getRequestType(handlerInput.requestEnvelope) === 'Alexa.Presentation.APL.UserEvent'
-        // && handlerInput.requestEnvelope.request.arguments[0] === 'StartSession';
-        return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'TestingVisualArgument';
-    },
-    handle(handlerInput){
-       console.log('IntroToAlexaConversationsTempEventHandler')
-       return handlerInput.responseBuilder
-                .addDirective({
-                    // type: 'Alexa.Presentation.APL.RenderDocument',
-                    // datasources: {
-                    //     "basicBackgroundData": {
-                    //         "textToDisplay": "Welcome to Coco",
-                    //         "backgroundImage": "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-first-apl-skill/master/modules/assets/lights_1920x1080.png"
-                    //     }
-                    // }
-                    type: 'Dialog.DelegateRequest',
-                    target: 'AMAZON.Conversations',
-                    // period: {
-                    //     until: 'EXPLICIT_RETURN' 
-                    // },
-                })
-                .getResponse();
-    }
-}
+// const IntroToAlexaConversationsTempEventHandler = {
+//     canHandle(handlerInput){
+//         // console.log(JSON.stringify(handlerInput.requestEnvelope));
+//         // console.log('handlerInput.requestEnvelope.request.arguments', JSON.stringify(handlerInput.requestEnvelope.request.arguments));
+//         // return Alexa.getRequestType(handlerInput.requestEnvelope) === 'Alexa.Presentation.APL.UserEvent'
+//         // && handlerInput.requestEnvelope.request.arguments[0] === 'StartSession';
+//         return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'TestingVisualArgument';
+//     },
+//     handle(handlerInput){
+//       console.log('IntroToAlexaConversationsTempEventHandler')
+//       return handlerInput.responseBuilder
+//                 .addDirective({
+//                     // type: 'Alexa.Presentation.APL.RenderDocument',
+//                     // datasources: {
+//                     //     "basicBackgroundData": {
+//                     //         "textToDisplay": "Welcome to Coco",
+//                     //         "backgroundImage": "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-first-apl-skill/master/modules/assets/lights_1920x1080.png"
+//                     //     }
+//                     // }
+//                     type: 'Dialog.DelegateRequest',
+//                     target: 'AMAZON.Conversations',
+//                     // period: {
+//                     //     until: 'EXPLICIT_RETURN' 
+//                     // },
+//                 })
+//                 .getResponse();
+//     }
+// }
 
-const WelcomeVisualTempHandler = {
-    canHandle(handlerInput){
-        return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'WelcomeVisualTemp';
-    },
-    handle(handlerInput){
-       console.log('IntroToAlexaConversationsTempEventHandler')
-       return handlerInput.responseBuilder
-                .addDirective({
-                    type: 'Dialog.DelegateRequest',
-                    target: 'AMAZON.Conversations',
-                    // period: {
-                    //     until: 'EXPLICIT_RETURN' 
-                    // },
-                })
-                .getResponse();
-    }
-}
+// const WelcomeVisualTempHandler = {
+//     canHandle(handlerInput){
+//         return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'WelcomeVisualTemp';
+//     },
+//     handle(handlerInput){
+//       console.log('IntroToAlexaConversationsTempEventHandler')
+//       return handlerInput.responseBuilder
+//                 .addDirective({
+//                     type: 'Dialog.DelegateRequest',
+//                     target: 'AMAZON.Conversations',
+//                     // period: {
+//                     //     until: 'EXPLICIT_RETURN' 
+//                     // },
+//                 })
+//                 .getResponse();
+//     }
+// }
 
-const RequestGetInitialInformationArgViewViewHandler = {
-    canHandle(handlerInput){
-        return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'RequestGetInitialInformationArgView';
-    },
-    handle(handlerInput){
-       console.log('RequestGetInitialInformationArgViewViewHandler')
-       return handlerInput.responseBuilder
-                .addDirective({
-                    type: 'Dialog.DelegateRequest',
-                    target: 'AMAZON.Conversations',
-                    // period: {
-                    //     until: 'EXPLICIT_RETURN' 
-                    // },
-                })
-                .getResponse();
-    }
-}
+// const RequestGetInitialInformationArgViewViewHandler = {
+//     canHandle(handlerInput){
+//         return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'RequestGetInitialInformationArgView';
+//     },
+//     handle(handlerInput){
+//       console.log('RequestGetInitialInformationArgViewViewHandler')
+//       return handlerInput.responseBuilder
+//                 .addDirective({
+//                     type: 'Dialog.DelegateRequest',
+//                     target: 'AMAZON.Conversations',
+//                     // period: {
+//                     //     until: 'EXPLICIT_RETURN' 
+//                     // },
+//                 })
+//                 .getResponse();
+//     }
+// }
 
-const ConfirmGetInitialInformationAPIViewViewHandler = {
-    canHandle(handlerInput){
-        return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'ConfirmGetInitialInformationAPIView';
-    },
-    handle(handlerInput){
-       console.log('ConfirmGetInitialInformationAPIViewViewHandler')
-       return handlerInput.responseBuilder
-                .addDirective({
-                    type: 'Dialog.DelegateRequest',
-                    target: 'AMAZON.Conversations',
-                    // period: {
-                    //     until: 'EXPLICIT_RETURN' 
-                    // },
-                })
-                .getResponse();
-    }
-}
+// const ConfirmGetInitialInformationAPIViewViewHandler = {
+//     canHandle(handlerInput){
+//         return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'ConfirmGetInitialInformationAPIView';
+//     },
+//     handle(handlerInput){
+//       console.log('ConfirmGetInitialInformationAPIViewViewHandler')
+//       return handlerInput.responseBuilder
+//                 .addDirective({
+//                     type: 'Dialog.DelegateRequest',
+//                     target: 'AMAZON.Conversations',
+//                     // period: {
+//                     //     until: 'EXPLICIT_RETURN' 
+//                     // },
+//                 })
+//                 .getResponse();
+//     }
+// }
 
-const GetInitialInformationSuccessViewViewHandler = {
-    canHandle(handlerInput){
-        return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'GetInitialInformationSuccessView';
-    },
-    handle(handlerInput){
-       console.log('GetInitialInformationSuccessViewViewHandler')
-       return handlerInput.responseBuilder
-                .addDirective({
-                    type: 'Dialog.DelegateRequest',
-                    target: 'AMAZON.Conversations',
-                    // period: {
-                    //     until: 'EXPLICIT_RETURN' 
-                    // },
-                })
-                .getResponse();
-    }
-}
+// const GetInitialInformationSuccessViewViewHandler = {
+//     canHandle(handlerInput){
+//         return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'GetInitialInformationSuccessView';
+//     },
+//     handle(handlerInput){
+//       console.log('GetInitialInformationSuccessViewViewHandler')
+//       return handlerInput.responseBuilder
+//                 .addDirective({
+//                     type: 'Dialog.DelegateRequest',
+//                     target: 'AMAZON.Conversations',
+//                     // period: {
+//                     //     until: 'EXPLICIT_RETURN' 
+//                     // },
+//                 })
+//                 .getResponse();
+//     }
+// }
 
-const StartSessionSuccessViewHandler = {
-    canHandle(handlerInput){
-        return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'StartSessionSuccessView_New';
-    },
-    handle(handlerInput){
-       console.log('StartSessionSuccessViewHandler')
-       return handlerInput.responseBuilder
-                .addDirective({
-                    type: 'Dialog.DelegateRequest',
-                    target: 'AMAZON.Conversations',
-                    // period: {
-                    //     until: 'EXPLICIT_RETURN' 
-                    // },
-                })
-                .getResponse();
-    }
-}
+// const StartSessionSuccessViewHandler = {
+//     canHandle(handlerInput){
+//         return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'StartSessionSuccessView_New';
+//     },
+//     handle(handlerInput){
+//       console.log('StartSessionSuccessViewHandler')
+//       return handlerInput.responseBuilder
+//                 .addDirective({
+//                     type: 'Dialog.DelegateRequest',
+//                     target: 'AMAZON.Conversations',
+//                     // period: {
+//                     //     until: 'EXPLICIT_RETURN' 
+//                     // },
+//                 })
+//                 .getResponse();
+//     }
+// }
 
-const PlaySessionAudioSuccessViewHandler = {
-    canHandle(handlerInput){
-        return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'PlaySessionAudioSuccessView';
-    },
-    handle(handlerInput){
-       console.log('PlaySessionAudioSuccessViewHandler')
-       return handlerInput.responseBuilder
-                .addDirective({
-                    type: 'Dialog.DelegateRequest',
-                    target: 'AMAZON.Conversations',
-                    // period: {
-                    //     until: 'EXPLICIT_RETURN' 
-                    // },
-                })
-                .getResponse();
-    }
-}
+// const PlaySessionAudioSuccessViewHandler = {
+//     canHandle(handlerInput){
+//         return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'PlaySessionAudioSuccessView';
+//     },
+//     handle(handlerInput){
+//       console.log('PlaySessionAudioSuccessViewHandler')
+//       return handlerInput.responseBuilder
+//                 .addDirective({
+//                     type: 'Dialog.DelegateRequest',
+//                     target: 'AMAZON.Conversations',
+//                     // period: {
+//                     //     until: 'EXPLICIT_RETURN' 
+//                     // },
+//                 })
+//                 .getResponse();
+//     }
+// }
 
-const RequestRecordRatingArgViewHandler = {
-    canHandle(handlerInput){
-        return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'RequestRecordRatingArgView';
-    },
-    handle(handlerInput){
-       console.log('RequestRecordRatingArgViewHandler')
-       return handlerInput.responseBuilder
-                .addDirective({
-                    type: 'Dialog.DelegateRequest',
-                    target: 'AMAZON.Conversations',
-                    // period: {
-                    //     until: 'EXPLICIT_RETURN' 
-                    // },
-                })
-                .getResponse();
-    }
-}
+// const RequestRecordRatingArgViewHandler = {
+//     canHandle(handlerInput){
+//         return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'RequestRecordRatingArgView';
+//     },
+//     handle(handlerInput){
+//       console.log('RequestRecordRatingArgViewHandler')
+//       return handlerInput.responseBuilder
+//                 .addDirective({
+//                     type: 'Dialog.DelegateRequest',
+//                     target: 'AMAZON.Conversations',
+//                     // period: {
+//                     //     until: 'EXPLICIT_RETURN' 
+//                     // },
+//                 })
+//                 .getResponse();
+//     }
+// }
 
-const RecordRatingSuccessViewHandler = {
-    canHandle(handlerInput){
-        return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'RecordRatingSuccessView';
-    },
-    handle(handlerInput){
-       console.log('RecordRatingSuccessViewHandler')
-       return handlerInput.responseBuilder
-                .addDirective({
-                    type: 'Dialog.DelegateRequest',
-                    target: 'AMAZON.Conversations',
-                    // period: {
-                    //     until: 'EXPLICIT_RETURN' 
-                    // },
-                })
-                .getResponse();
-    }
-}
+// const RecordRatingSuccessViewHandler = {
+//     canHandle(handlerInput){
+//         return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'RecordRatingSuccessView';
+//     },
+//     handle(handlerInput){
+//       console.log('RecordRatingSuccessViewHandler')
+//       return handlerInput.responseBuilder
+//                 .addDirective({
+//                     type: 'Dialog.DelegateRequest',
+//                     target: 'AMAZON.Conversations',
+//                     // period: {
+//                     //     until: 'EXPLICIT_RETURN' 
+//                     // },
+//                 })
+//                 .getResponse();
+//     }
+// }
 
-const TryOthersSuccessViewHandler = {
-    canHandle(handlerInput){
-        return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'TryOthersSuccessView';
-    },
-    handle(handlerInput){
-       console.log('TryOthersSuccessViewHandler')
-       return handlerInput.responseBuilder
-                .addDirective({
-                    type: 'Dialog.DelegateRequest',
-                    target: 'AMAZON.Conversations',
-                    // period: {
-                    //     until: 'EXPLICIT_RETURN' 
-                    // },
-                })
-                .getResponse();
-    }
-}
+// const TryOthersSuccessViewHandler = {
+//     canHandle(handlerInput){
+//         return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'TryOthersSuccessView';
+//     },
+//     handle(handlerInput){
+//       console.log('TryOthersSuccessViewHandler')
+//       return handlerInput.responseBuilder
+//                 .addDirective({
+//                     type: 'Dialog.DelegateRequest',
+//                     target: 'AMAZON.Conversations',
+//                     // period: {
+//                     //     until: 'EXPLICIT_RETURN' 
+//                     // },
+//                 })
+//                 .getResponse();
+//     }
+// }
 
-const EndSessionVisualViewHandler = {
-    canHandle(handlerInput){
-        return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'EndSessionVisualViewNew';
-    },
-    handle(handlerInput){
-       console.log('EndSessionVisualViewHandler')
-       return handlerInput.responseBuilder
-                .addDirective({
-                    type: 'Dialog.DelegateRequest',
-                    target: 'AMAZON.Conversations',
-                    // period: {
-                    //     until: 'EXPLICIT_RETURN' 
-                    // },
-                })
-                .getResponse();
-    }
-}
+// const EndSessionVisualViewHandler = {
+//     canHandle(handlerInput){
+//         return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'EndSessionVisualViewNew';
+//     },
+//     handle(handlerInput){
+//       console.log('EndSessionVisualViewHandler')
+//       return handlerInput.responseBuilder
+//                 .addDirective({
+//                     type: 'Dialog.DelegateRequest',
+//                     target: 'AMAZON.Conversations',
+//                     // period: {
+//                     //     until: 'EXPLICIT_RETURN' 
+//                     // },
+//                 })
+//                 .getResponse();
+//     }
+// }
 
 /**
  * API Handler for GetFavoriteColor API
