@@ -113,7 +113,9 @@ const PlaySessionAudioeApiHandler = {
         const result_audio = data_snapshot_audio.val();
         const result_rating = data_snapshot_rating.val();
         // release db
-        // db.goOffline();
+        console.log("db", db);
+        db.goOffline();
+        console.log("db", db);
         console.log("audio: ", result_audio);
         console.log("rating ", result_rating);
         try{
