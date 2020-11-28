@@ -93,7 +93,6 @@ const StartSessionApiHandler = {
         if (sessionAttributes.uri) {
             console.log("get uri")
             // testing
-            db.goOnline();
             const ref_audio = db.ref('LastRecommendedResource');
             const data_snapshot_audio = await ref_audio.once('value');
             const result_audio = data_snapshot_audio.val();
@@ -101,6 +100,7 @@ const StartSessionApiHandler = {
             db.goOffline();
         } else {
             // testing
+            db.goOnline();
             const ref_audio = db.ref('LastRecommendedResource');
             const data_snapshot_audio = await ref_audio.once('value');
             const result_audio = data_snapshot_audio.val();
