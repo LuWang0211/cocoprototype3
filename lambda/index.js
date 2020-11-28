@@ -31,7 +31,7 @@ firebase.initializeApp({
     appId: '1:901645805895:android:6174bbf516f640c0960462',
 });
 
-// const db = firebase.database();
+const db = firebase.database();
 /**
  * API Handler for RecordColor API
  * 
@@ -101,7 +101,7 @@ const PlaySessionAudioeApiHandler = {
     async handle(handlerInput) {
                 
         console.log("Api Request [PlaySessionAudio]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
-        const db = firebase.database();
+        // const db = firebase.database();
         const ref_audio = db.ref('LastRecommendedResource');
         // let ref_rating = db.ref('LastRatingScore');
         
