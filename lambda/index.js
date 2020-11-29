@@ -35,7 +35,6 @@ const db = firebase.database();
 
 //local data
 const localdata = require('./resourcesdata.json');
-console.log("localdata default", localdata)
 
 /**
  * API Handler for RecordColor API
@@ -101,7 +100,7 @@ const PlaySessionAudioeApiHandler = {
             apiResponse: Uri
         };
 
-        console.log("localdata", localdata[0]);
+        console.log("localdata", localdata["1"]);
 
         // try read LastRecommendedResource
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
