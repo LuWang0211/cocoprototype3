@@ -113,7 +113,7 @@ const PlaySessionAudioeApiHandler = {
                     console.log("temp", temp)
                     sessionAttributes.audiouri = temp[Math.floor(Math.random() * temp.length)]
                 }
-            }
+            } 
         }
         // console.log("sessionAttributes.audiouri", sessionAttributes.audiouri)
         const Uri = sessionAttributes.audiouri;
