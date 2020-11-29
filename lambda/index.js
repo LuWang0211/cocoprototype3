@@ -95,9 +95,8 @@ const PlaySessionAudioeApiHandler = {
     },
     handle(handlerInput) {
         console.log("Api Request [PlaySessionAudio]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
-        let Uri = '';
         let response = {
-            apiResponse: Uri
+            apiResponse: ''
         };
 
         // try read LastRecommendedResource
@@ -117,7 +116,7 @@ const PlaySessionAudioeApiHandler = {
             }
         }
         console.log("sessionAttributes.audiouri")
-        Uri = sessionAttributes.audiouri
+        const Uri = sessionAttributes.audiouri
         response = {
             apiResponse: Uri
         };
