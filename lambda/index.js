@@ -102,21 +102,21 @@ const PlaySessionAudioeApiHandler = {
         // try read LastRecommendedResource
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
         if (!sessionAttributes.audiouri) {
-            
-            sessionAttributes.audiouri = "https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/final_resources/2min_breathing_exercise_no_piano.mp3"
+            // sessionAttributes.audiouri = "https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/final_resources/2min_breathing_exercise_no_piano.mp3"
             const index = Math.floor(Math.random() * localdata.length)
-            // const index_string = JSON.stringify(index);
-            console.log("localdata", localdata[index]);
-            // console.log("localdata index_string", index_string);
-            // sessionAttributes.audiouri = localdata[].
-        
+            // console.log("localdata", localdata[index]);
+            sessionAttributes.audiouri = localdata[index]
         } else {
-            if (sessionAttributes.userrating === 1  || sessionAttributes.userrating === 2 || sessionAttributes.userrating === 3) {
-                sessionAttributes.audiouri = "https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/final_resources/4min_meditation.mp3"
+            if (!sessionAttributes.userrating) {
+                if (sessionAttributes.userrating === 1  || sessionAttributes.userrating === 2 || sessionAttributes.userrating === 3) {
+                    let temp =  localdata.filter(data => data !== sessionAttributes.audiouri)
+                    console.log("temp", temp)
+                    sessionAttributes.audiouri = temp[Math.floor(Math.random() * temp.length)]
+                }
             }
         }
-        console.log("sessionAttributes.audiouri")
-        const Uri = sessionAttributes.audiouri
+        // console.log("sessionAttributes.audiouri", sessionAttributes.audiouri)
+        const Uri = sessionAttributes.audiouri;
         response = {
             apiResponse: Uri
         };
