@@ -16,10 +16,10 @@
 
 const Alexa     = require('ask-sdk-core');
 const util      = require('./util');
-const process = require('process');
+const process   = require('process');
 
 // add firebase
-const firebase = require("firebase");
+const firebase  = require("firebase");
 
 firebase.initializeApp({
     apiKey: 'AIzaSyAY0F2osDlc9j6P6FQeHRn3y5mOROtbhpg',
@@ -32,6 +32,10 @@ firebase.initializeApp({
 });
 
 const db = firebase.database();
+
+//local data
+const localdata      = require('./resourcesdata.json');
+
 /**
  * API Handler for RecordColor API
  * 
@@ -89,94 +93,84 @@ const PlaySessionAudioeApiHandler = {
     canHandle(handlerInput) {
         return util.isApiRequest(handlerInput, 'PlaySessionAudio');
     },
-    async handle(handlerInput) {
+    handle(handlerInput) {
         console.log("Api Request [PlaySessionAudio]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
+        let Uri = '';
         let response = {
-            apiResponse: ''
+            apiResponse: Uri
         };
-        let Uri = ''
-        
+
+        console.log("localdata", localdata[0]);
+
+        // try read LastRecommendedResource
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-        
-        if (!sessionAttributes.uri) {
-            console.log("not get sessionAttributes uri")
-            // testing
-            const ref_audio = db.ref('LastRecommendedResource');
-            // let ref_rating = db.ref('LastRatingScore');
-            const data_snapshot_audio = await ref_audio.once('value');
-            // const data_snapshot_rating = await ref_rating.once('value');
-            const result_audio = data_snapshot_audio.val();
-            // const result_rating = data_snapshot_rating.val();
-            sessionAttributes.uri = result_audio;
-            db.goOffline();
-            console.log("audio: ", result_audio);
-            // console.log("rating ", result_rating);
-        } else {
-            // testing
-            console.log("get sessionAttributes uri")
-            db.goOnline();
-            const ref_audio = db.ref('LastRecommendedResource');
-            const data_snapshot_audio = await ref_audio.once('value');
-            const result_audio = data_snapshot_audio.val();
-            sessionAttributes.uri = result_audio;
-            db.goOffline();
-            console.log("audio: ", result_audio);
-            // console.log("rating ", result_rating);
-        }
-
-
-        try{
-            if (!sessionAttributes.userrating) {
-                Uri = sessionAttributes.uri.audiouri
-                console.log('get firebase data URI', Uri)
-            } else {
-                if (sessionAttributes.userrating === 1  || sessionAttributes.userrating === 2 || sessionAttributes.userrating === 3){
-                    Uri = 'https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/final_resources/6min_meditation.mp3'
-                    console.log('get firebase data URI', Uri)
-                } else {
-                    Uri = sessionAttributes.uri.audiouri
-                    console.log('get firebase data URI', Uri)
-                }
-            }
+        if (!sessionAttributes.audiouri) {
             
-            response = {
-                apiResponse: Uri
-            };
-
-        }catch(e){
-            console.log("get firebase data URI ERROR", e)
+            sessionAttributes.audiouri = "https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/final_resources/2min_breathing_exercise_no_piano.mp3"
+            // const index = Math.floor(Math.random() * localdata.length-2)
+            // sessionAttributes.audiouri = localdata[].
+        
+        } else {
+            if (sessionAttributes.userrating === 1  || sessionAttributes.userrating === 2 || sessionAttributes.userrating === 3) {
+                sessionAttributes.audiouri = "https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/final_resources/4min_meditation.mp3"
+            }
         }
+        
+        Uri = sessionAttributes.audiouri
+        
+        
+        // if (!sessionAttributes.uri) {
+        //     console.log("not get sessionAttributes uri")
+        //     // testing
+        //     const ref_audio = db.ref('LastRecommendedResource');
+        //     // let ref_rating = db.ref('LastRatingScore');
+        //     const data_snapshot_audio = await ref_audio.once('value');
+        //     // const data_snapshot_rating = await ref_rating.once('value');
+        //     const result_audio = data_snapshot_audio.val();
+        //     // const result_rating = data_snapshot_rating.val();
+        //     sessionAttributes.uri = result_audio;
+        //     db.goOffline();
+        //     console.log("audio: ", result_audio);
+        //     // console.log("rating ", result_rating);
+        // } else {
+        //     // testing
+        //     console.log("get sessionAttributes uri")
+        //     db.goOnline();
+        //     const ref_audio = db.ref('LastRecommendedResource');
+        //     const data_snapshot_audio = await ref_audio.once('value');
+        //     const result_audio = data_snapshot_audio.val();
+        //     sessionAttributes.uri = result_audio;
+        //     db.goOffline();
+        //     console.log("audio: ", result_audio);
+        //     // console.log("rating ", result_rating);
+        // }
+
+
+        // try{
+        //     if (!sessionAttributes.userrating) {
+        //         Uri = sessionAttributes.uri.audiouri
+        //         console.log('get firebase data URI', Uri)
+        //     } else {
+        //         if (sessionAttributes.userrating === 1  || sessionAttributes.userrating === 2 || sessionAttributes.userrating === 3){
+        //             Uri = 'https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/final_resources/6min_meditation.mp3'
+        //             console.log('get firebase data URI', Uri)
+        //         } else {
+        //             Uri = sessionAttributes.uri.audiouri
+        //             console.log('get firebase data URI', Uri)
+        //         }
+        //     }
+            
+        //     response = {
+        //         apiResponse: Uri
+        //     };
+
+        // }catch(e){
+        //     console.log("get firebase data URI ERROR", e)
+        // }
 
         console.log("Api Response [PlaySessionAudio]: ", JSON.stringify(response, null, 2));
         return response;
     }
-    // handle(handlerInput) {
-                
-    //     console.log("Api Request [PlaySessionAudio]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
-        
-    //     let response = {
-    //         apiResponse: ''
-    //     };
-    //     const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-    //     if (sessionAttributes.uri){
-    //         var uri = sessionAttributes.uri.audiouri;
-    //     } else {
-    //         console.log('testing haha ')
-    //     }
-    //     try{
-    //         let Uri = uri;
-
-    //         response = {
-    //             apiResponse: Uri
-    //         };
-
-    //     }catch(e){
-    //         console.log("session data", e)
-    //     }
-
-    //     console.log("Api Response [PlaySessionAudio]: ", JSON.stringify(response, null, 2));
-    //     return response;
-    // }
 }
 
 
