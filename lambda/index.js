@@ -35,7 +35,7 @@ const db = firebase.database();
 
 //local data
 const localdata = require('./resourcesdata.json');
-
+console.log("localdata", localdata)
 
 /**
  * API Handler for RecordColor API
