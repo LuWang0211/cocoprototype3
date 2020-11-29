@@ -308,10 +308,6 @@ const ProvideFeedbackApiHandler = {
 }
 
 
-
-
-
-
 /**
  * FallbackIntentHandler - Handle all other requests to the skill 
  * 
