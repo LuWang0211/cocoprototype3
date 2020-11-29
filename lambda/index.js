@@ -118,6 +118,9 @@ const PlaySessionAudioeApiHandler = {
         }
         console.log("sessionAttributes.audiouri")
         Uri = sessionAttributes.audiouri
+        response = {
+            apiResponse: Uri
+        };
         
         
         // if (!sessionAttributes.uri) {
