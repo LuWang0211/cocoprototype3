@@ -107,7 +107,7 @@ const PlaySessionAudioeApiHandler = {
             // console.log("localdata", localdata[index]);
             sessionAttributes.audiouri = localdata[index]
         } else {
-            if (!sessionAttributes.userrating) {
+            if (sessionAttributes.userrating) {
                 if (sessionAttributes.userrating === 1  || sessionAttributes.userrating === 2 || sessionAttributes.userrating === 3) {
                     let temp =  localdata.filter(data => data !== sessionAttributes.audiouri)
                     console.log("temp", temp)
