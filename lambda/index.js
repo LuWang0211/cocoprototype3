@@ -108,6 +108,7 @@ const PlaySessionAudioeApiHandler = {
             const index = Math.floor(Math.random() * localdata.length)
             const index_string = index.toString();
             console.log("localdata", localdata);
+            console.log("localdata index_string", index_string);
             // sessionAttributes.audiouri = localdata[].
         
         } else {
