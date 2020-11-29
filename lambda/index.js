@@ -34,7 +34,8 @@ firebase.initializeApp({
 const db = firebase.database();
 
 //local data
-const localdata      = require('./resourcesdata.json');
+const localdata = require('./resourcesdata.json');
+
 
 /**
  * API Handler for RecordColor API
