@@ -305,6 +305,53 @@ const ProvideFeedbackApiHandler = {
 }
 
 
+
+// IntroduceCOCO
+const IntroduceCOCOApiHandler = {
+    canHandle(handlerInput) {
+        return util.isApiRequest(handlerInput, 'IntroduceCOCO');
+    },
+    handle(handlerInput) {
+        console.log("Api Request [IntroduceCOCO]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
+        let response = {
+            apiResponse: 0
+        };
+        console.log("Api Response [IntroduceCOCO]: ", JSON.stringify(response, null, 2));
+        return response;
+    }
+}
+
+// NotFriendlyAPI
+const NotFriendlyAPIApiHandler = {
+    canHandle(handlerInput) {
+        return util.isApiRequest(handlerInput, 'NotFriendlyAPI');
+    },
+    handle(handlerInput) {
+        console.log("Api Request [NotFriendlyAPI]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
+        let response = {
+            apiResponse: 0
+        };
+        console.log("Api Response [NotFriendlyAPI]: ", JSON.stringify(response, null, 2));
+        return response;
+    }
+}
+
+// NoHumanAPI
+const NoHumanAPIAPIApiHandler = {
+    canHandle(handlerInput) {
+        return util.isApiRequest(handlerInput, 'NoHumanAPI');
+    },
+    handle(handlerInput) {
+        console.log("Api Request [NoHumanAPI]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
+        let response = {
+            apiResponse: 0
+        };
+        console.log("Api Response [NoHumanAPI]: ", JSON.stringify(response, null, 2));
+        return response;
+    }
+}
+
+
 /**
  * FallbackIntentHandler - Handle all other requests to the skill 
  * 
@@ -320,7 +367,9 @@ const FallbackIntentHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'Dialog.API.Invoked'
                 && request.apiRequest.name !== 'StartSessionApiHandler' && request.apiRequest.name !== 'PlaySessionAudioeApiHandler'
                 && request.apiRequest.name !== 'RecordRatingApiHandler' && request.apiRequest.name !== 'ProvideFeedbackApiHandler'
-                && request.apiRequest.name !== 'TryOthersApiHandler' && request.apiRequest.name !== 'GetInitialInformationApiHandler';
+                && request.apiRequest.name !== 'TryOthersApiHandler' && request.apiRequest.name !== 'GetInitialInformationApiHandler'
+                && request.apiRequest.name !== 'IntroduceCOCOApiHandler' && request.apiRequest.name !== 'NotFriendlyAPIApiHandler'
+                && request.apiRequest.name !== 'NoHumanAPIAPIApiHandler';
     },
     handle(handlerInput) {
         const intentName = handlerInput.requestEnvelope.request.intent.name;
@@ -389,6 +438,9 @@ exports.handler = Alexa.SkillBuilders.custom()
         RecordRatingApiHandler,
         ProvideFeedbackApiHandler,
         TryOthersApiHandler,
+        IntroduceCOCOApiHandler,
+        NotFriendlyAPIApiHandler,
+        NoHumanAPIAPIApiHandler,
         FallbackIntentHandler,
         SessionEndedRequestHandler
     )
