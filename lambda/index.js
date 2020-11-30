@@ -107,14 +107,28 @@ const PlaySessionAudioeApiHandler = {
             // console.log("localdata", localdata[index]);
             sessionAttributes.audiouri = localdata[index]
         } else {
+            if (sessionAttributes.tryothers) {
+                if (sessionAttributes.tryothers === 'on') {
+                    if (sessionAttributes.InitExercise === 'breathing' || sessionAttributes.InitExercise === 'breathing exercise') {
+                        sessionAttributes.audiouri = "https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/final_resources/2min_breathing_exercise_no_piano.mp3"
+                    } else if (sessionAttributes.InitExercise === 'music' || sessionAttributes.InitExercise === 'calming music') {
+                        sessionAttributes.audiouri = "https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/final_resources/4min_calming_music.mp3"
+                    } else {
+                        let temp =  localdata.filter(data => data !== sessionAttributes.audiouri)
+                        console.log("temp", temp)
+                        sessionAttributes.audiouri = temp[Math.floor(Math.random() * (temp.length))]
+                    }
+
+                }
+            }
             if (sessionAttributes.userrating) {
                 if (sessionAttributes.userrating === 1  || sessionAttributes.userrating === 2 || sessionAttributes.userrating === 3) {
                     let temp =  localdata.filter(data => data !== sessionAttributes.audiouri)
-                    console.log("temp", temp)
                     sessionAttributes.audiouri = temp[Math.floor(Math.random() * temp.length)]
                 }
             } 
         }
+        sessionAttributes.tryothers = 'off';
         // console.log("sessionAttributes.audiouri", sessionAttributes.audiouri)
         const Uri = sessionAttributes.audiouri;
         response = {
@@ -239,6 +253,11 @@ const TryOthersApiHandler = {
     },
     handle(handlerInput) {
         console.log("Api Request [TryOthers]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
+        
+        // Store TryOthers status in the session
+        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        sessionAttributes.tryothers = 'on';
+        
         let response = {
             apiResponse: 0
         };
