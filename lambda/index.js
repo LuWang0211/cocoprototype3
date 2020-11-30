@@ -114,7 +114,8 @@ const PlaySessionAudioeApiHandler = {
                     } else if (sessionAttributes.InitExercise === 'music' || sessionAttributes.InitExercise === 'calming music') {
                         sessionAttributes.audiouri = "https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/final_resources/4min_calming_music.mp3"
                     } else {
-                        let temp =  localdata.filter(data => data !== sessionAttributes.audiouri)
+                        let short_localdata = localdata.slice(0, 3)
+                        let temp =  short_localdata.filter(data => data !== sessionAttributes.audiouri)
                         console.log("temp", temp)
                         sessionAttributes.audiouri = temp[Math.floor(Math.random() * (temp.length))]
                     }
