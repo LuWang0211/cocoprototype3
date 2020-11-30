@@ -103,7 +103,7 @@ const PlaySessionAudioeApiHandler = {
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
         if (!sessionAttributes.audiouri) {
             // sessionAttributes.audiouri = "https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/final_resources/2min_breathing_exercise_no_piano.mp3"
-            const index = Math.floor(Math.random() * localdata.length)
+            const index = Math.floor(Math.random() * (localdata.length-2))
             // console.log("localdata", localdata[index]);
             sessionAttributes.audiouri = localdata[index]
         } else {
