@@ -16,10 +16,10 @@
 
 const Alexa     = require('ask-sdk-core');
 const util      = require('./util');
-const process = require('process');
+const process   = require('process');
 
 // add firebase
-const firebase = require("firebase");
+const firebase  = require("firebase");
 
 firebase.initializeApp({
     apiKey: 'AIzaSyAY0F2osDlc9j6P6FQeHRn3y5mOROtbhpg',
@@ -31,7 +31,11 @@ firebase.initializeApp({
     appId: '1:901645805895:android:6174bbf516f640c0960462',
 });
 
-let db = firebase.database();
+const db = firebase.database();
+
+//local data
+const localdata = require('./resourcesdata.json');
+
 /**
  * API Handler for RecordColor API
  * 
@@ -40,8 +44,7 @@ let db = firebase.database();
  * 
  * See https://developer.amazon.com/en-US/docs/alexa/conversations/handle-api-calls.html
  */
- 
-// GetInitialInformation
+
 const GetInitialInformationApiHandler = {
     canHandle(handlerInput) {
         return util.isApiRequest(handlerInput, 'GetInitialInformation');
@@ -50,15 +53,9 @@ const GetInitialInformationApiHandler = {
         console.log("Api Request [GetInitialInformation]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
         // First get our request entity and grab the availabletime passed in the API call
         const args = util.getApiArguments(handlerInput);
-        console.log('args', args);
-        try{
-            const availabletime = args.availabletime;
-            // Store the favorite InitExercise in the session
-            const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-            sessionAttributes.availabletime = availabletime;
-        }catch(e){
-            console.log("Api Request [GetInitialInformation]: ", e);
-        }
+        const availabletime = args.availabletime;
+        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        sessionAttributes.availabletime = availabletime;
         
         let response = {
             apiResponse: 0
@@ -78,15 +75,13 @@ const StartSessionApiHandler = {
         console.log("Api Request [StartSession]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
         // First get our request entity and grab the InitExercise passed in the API call
         const args = util.getApiArguments(handlerInput);
-        const InitExercise = args.InitExercise;
-        // Store the InitExercise in the session
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        const InitExercise = args.InitExercise;
         sessionAttributes.InitExercise = InitExercise;
-        
+
         let response = {
             apiResponse: 0
         };
-        
         console.log("Api Response [StartSession]: ", JSON.stringify(response, null, 2));
         return response;
     }
@@ -98,46 +93,98 @@ const PlaySessionAudioeApiHandler = {
     canHandle(handlerInput) {
         return util.isApiRequest(handlerInput, 'PlaySessionAudio');
     },
-    async handle(handlerInput) {
+    handle(handlerInput) {
         console.log("Api Request [PlaySessionAudio]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
-        let ref_audio = db.ref('LastRecommendedResource');
-        let ref_rating = db.ref('LastRatingScore');
-        
         let response = {
             apiResponse: ''
         };
-        
-        let data_snapshot_audio = await ref_audio.once('value');
-        let data_snapshot_rating = await ref_rating.once('value');
-        let result_audio = data_snapshot_audio.val();
-        let result_rating = data_snapshot_rating.val();
-        // release db
-        // console.log("db", db);
-        db.goOffline();
-        // console.log("db", db);
-        console.log("audio: ", result_audio);
-        console.log("rating ", result_rating);
-        try{
-            let Uri = result_audio.audiouri;
-            let Rating = result_rating;
-            console.log('get firebase data URI', Uri)
-            console.log('get firebase data Rating', Rating)
-            
-            if (Rating === '4' || Rating === '5') {
-                console.log("High Rating Resource")
-                response = {
-                    apiResponse: Uri
-                };
-            } else {
-                console.log("Low Rating Resource")
-                response = {
-                    apiResponse: 'https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/final_resources/4min_meditation.mp3' // for testing
-                };
-            }
 
-        }catch(e){
-            console.log("get firebase data URI ERROR", e)
+        // try read LastRecommendedResource
+        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        if (!sessionAttributes.audiouri) {
+            // sessionAttributes.audiouri = "https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/final_resources/2min_breathing_exercise_no_piano.mp3"
+            const index = Math.floor(Math.random() * (localdata.length-2))
+            // console.log("localdata", localdata[index]);
+            sessionAttributes.audiouri = localdata[index]
+        } else {
+            if (sessionAttributes.tryothers) {
+                if (sessionAttributes.tryothers === 'on') {
+                    if (sessionAttributes.InitExercise === 'breathing' || sessionAttributes.InitExercise === 'breathing exercise') {
+                        sessionAttributes.audiouri = "https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/final_resources/2min_breathing_exercise_no_piano.mp3"
+                    } else if (sessionAttributes.InitExercise === 'music' || sessionAttributes.InitExercise === 'calming music') {
+                        sessionAttributes.audiouri = "https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/final_resources/4min_calming_music.mp3"
+                    } else {
+                        let short_localdata = localdata.slice(0, 3);
+                        let temp =  short_localdata.filter(data => data !== sessionAttributes.audiouri);
+                        console.log("temp", temp);
+                        sessionAttributes.audiouri = temp[Math.floor(Math.random() * (temp.length))]
+                    }
+
+                }
+            }
+            if (sessionAttributes.userrating) {
+                if (sessionAttributes.userrating === 1  || sessionAttributes.userrating === 2 || sessionAttributes.userrating === 3) {
+                    let temp =  localdata.filter(data => data !== sessionAttributes.audiouri)
+                    sessionAttributes.audiouri = temp[Math.floor(Math.random() * temp.length)]
+                }
+            } 
         }
+        sessionAttributes.tryothers = 'off';
+        // console.log("sessionAttributes.audiouri", sessionAttributes.audiouri)
+        const Uri = sessionAttributes.audiouri;
+        response = {
+            apiResponse: Uri
+        };
+        
+        
+        // if (!sessionAttributes.uri) {
+        //     console.log("not get sessionAttributes uri")
+        //     // testing
+        //     const ref_audio = db.ref('LastRecommendedResource');
+        //     // let ref_rating = db.ref('LastRatingScore');
+        //     const data_snapshot_audio = await ref_audio.once('value');
+        //     // const data_snapshot_rating = await ref_rating.once('value');
+        //     const result_audio = data_snapshot_audio.val();
+        //     // const result_rating = data_snapshot_rating.val();
+        //     sessionAttributes.uri = result_audio;
+        //     db.goOffline();
+        //     console.log("audio: ", result_audio);
+        //     // console.log("rating ", result_rating);
+        // } else {
+        //     // testing
+        //     console.log("get sessionAttributes uri")
+        //     db.goOnline();
+        //     const ref_audio = db.ref('LastRecommendedResource');
+        //     const data_snapshot_audio = await ref_audio.once('value');
+        //     const result_audio = data_snapshot_audio.val();
+        //     sessionAttributes.uri = result_audio;
+        //     db.goOffline();
+        //     console.log("audio: ", result_audio);
+        //     // console.log("rating ", result_rating);
+        // }
+
+
+        // try{
+        //     if (!sessionAttributes.userrating) {
+        //         Uri = sessionAttributes.uri.audiouri
+        //         console.log('get firebase data URI', Uri)
+        //     } else {
+        //         if (sessionAttributes.userrating === 1  || sessionAttributes.userrating === 2 || sessionAttributes.userrating === 3){
+        //             Uri = 'https://cocobotpracticeaudio.s3-us-west-2.amazonaws.com/final_resources/6min_meditation.mp3'
+        //             console.log('get firebase data URI', Uri)
+        //         } else {
+        //             Uri = sessionAttributes.uri.audiouri
+        //             console.log('get firebase data URI', Uri)
+        //         }
+        //     }
+            
+        //     response = {
+        //         apiResponse: Uri
+        //     };
+
+        // }catch(e){
+        //     console.log("get firebase data URI ERROR", e)
+        // }
 
         console.log("Api Response [PlaySessionAudio]: ", JSON.stringify(response, null, 2));
         return response;
@@ -170,8 +217,8 @@ const RecordRatingApiHandler = {
         if (userrating === 4 || userrating === 5){
             console.log("High Rating");
             let resp_for_high_rating = [
-                'I am glad you like the exercise! Do you want to do it again, try another exercise or end the session?',
-                'That’s awesome! I’m glad you like it! Do you want to practice it again, try another exercise or end the session?'
+                'I am glad you like the exercise! Do you want to practice it again, try another exercise, or end the session?',
+                'That’s awesome! I’m glad you like it! Do you want to practice it again, try another exercise, or end the session?'
             ];
             // random choice
             response = {
@@ -180,8 +227,8 @@ const RecordRatingApiHandler = {
         } else if (userrating === 1 || userrating === 2 || userrating === 3) {
             console.log("Low Rating");
             let resp_for_low_rating = [
-                'I am sorry you do not like the exercise that much. Would you like to try other exercises or end the session?',
-                'Hmm, I will try to recommend something else next time. Do you want to try other exercises or end the session?'
+                'I am sorry you do not like the exercise that much. Would you like to try other exercises, or end the session?',
+                'Hmm, I will try to recommend something else next time. Do you want to try other exercises, or end the session?'
             ];
             
             response = {
@@ -207,6 +254,11 @@ const TryOthersApiHandler = {
     },
     handle(handlerInput) {
         console.log("Api Request [TryOthers]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
+        
+        // Store TryOthers status in the session
+        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        sessionAttributes.tryothers = 'on';
+        
         let response = {
             apiResponse: 0
         };
@@ -220,25 +272,23 @@ const ProvideFeedbackApiHandler = {
     canHandle(handlerInput) {
         return util.isApiRequest(handlerInput, 'ProvideFeedback');
     },
-    async handle(handlerInput) {
+    handle(handlerInput) {
         console.log("Api Request [ProvideFeedback]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
         let feedback = 'no input'
+        // Store the Rating in the session
+        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+       
+        
         try {
             if (handlerInput.requestEnvelope.request.apiRequest.input) {
                console.log("Api Request [ProvideFeedback] Inpurt: ", handlerInput.requestEnvelope.request.apiRequest.input);
                feedback = handlerInput.requestEnvelope.request.apiRequest.input
+               sessionAttributes.feedback = feedback;
             }
         } catch(e) {
             console.log("Api Request [ProvideFeedback] Inpurt: ", e);
         }
-        
-        let db = firebase.database();
-        let ref = db.ref('Alexa/Feedback');
-        
-        // console.log("db", db);
-        const result = await ref.set(feedback);
-        db.goOffline();
-        
+
         let response = {
             apiResponse: 0
         };
@@ -246,185 +296,82 @@ const ProvideFeedbackApiHandler = {
         console.log("Api Response [ProvideFeedback]: ", JSON.stringify(response, null, 2));
         return response;
     }
-}
-
-
-/**
- * API Handler for RecordColor API
- * 
- * @param handlerInput
- * @returns API response object 
- * 
- * See https://developer.amazon.com/en-US/docs/alexa/conversations/handle-api-calls.html
- */
-// const RecordColorApiHandler = {
-//     canHandle(handlerInput) {
-//         return util.isApiRequest(handlerInput, 'RecordColor');
-//     },
-//     handle(handlerInput) {
-//         console.log("Api Request [RecordColor]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
-//         // First get our request entity and grab the color passed in the API call
-//         const args = util.getApiArguments(handlerInput);
-//         const color = args.color;
-//         // Store the favorite color in the session
-//         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-//         sessionAttributes.favoriteColor = color;
-
-//         let response = {
-//             apiResponse: {
-//                 color : color
-//             }
-//         };
-//         console.log("Api Response [RecordColor]: ", JSON.stringify(response, null, 2));
-//         return response;
-//     }
-// }
-
-// const IntroToAlexaConversationsButtonEventHandler = {
-//     canHandle(handlerInput){
-//         console.log(JSON.stringify(handlerInput.requestEnvelope));
-//         console.log('handlerInput.requestEnvelope.request.arguments', JSON.stringify(handlerInput.requestEnvelope.request.arguments));
-//         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'Alexa.Presentation.APL.UserEvent'
-//             && handlerInput.requestEnvelope.request.arguments[0] === 'SetFavoriteColor';
-//     },
-//     handle(handlerInput){
-//       return handlerInput.responseBuilder
-//                     .addDirective({
-//                         type: 'Dialog.DelegateRequest',
-//                         target: 'AMAZON.Conversations',
-//                         period: {
-//                             until: 'EXPLICIT_RETURN' 
-//                         },
-//                         updatedRequest: {
-//                             type: 'Dialog.InputRequest',
-//                             input: {
-//                                 name: 'SpecifyFavoriteColor',
-//                                 slots: {
-//                                     name: {
-//                                         name : 'color',
-//                                         value: handlerInput.requestEnvelope.request.arguments[1]
-//                                     }
-//                                 }
-//                             }
-//                         }
-//                     })
-//                     .getResponse();
-//     }
-// }
-
-const IntroToAlexaConversationsTempEventHandler = {
-    canHandle(handlerInput){
-        // console.log(JSON.stringify(handlerInput.requestEnvelope));
-        // console.log('handlerInput.requestEnvelope.request.arguments', JSON.stringify(handlerInput.requestEnvelope.request.arguments));
-        // return Alexa.getRequestType(handlerInput.requestEnvelope) === 'Alexa.Presentation.APL.UserEvent'
-        // && handlerInput.requestEnvelope.request.arguments[0] === 'StartSession';
-        return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'TestingVisualArgument';
-    },
-    handle(handlerInput){
-       console.log('IntroToAlexaConversationsTempEventHandler')
-       return handlerInput.responseBuilder
-                .addDirective({
-                    // type: 'Alexa.Presentation.APL.RenderDocument',
-                    // datasources: {
-                    //     "basicBackgroundData": {
-                    //         "textToDisplay": "Welcome to Coco",
-                    //         "backgroundImage": "https://raw.githubusercontent.com/alexa/skill-sample-nodejs-first-apl-skill/master/modules/assets/lights_1920x1080.png"
-                    //     }
-                    // }
-                    type: 'Dialog.DelegateRequest',
-                    target: 'AMAZON.Conversations',
-                    period: {
-                        until: 'EXPLICIT_RETURN' 
-                    },
-                })
-                .getResponse();
-    }
-}
-
-const WelcomeVisualTempHandler = {
-    canHandle(handlerInput){
-        return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'WelcomeVisualTemp';
-    },
-    handle(handlerInput){
-       console.log('IntroToAlexaConversationsTempEventHandler')
-       return handlerInput.responseBuilder
-                .addDirective({
-                    type: 'Dialog.DelegateRequest',
-                    target: 'AMAZON.Conversations',
-                    period: {
-                        until: 'EXPLICIT_RETURN' 
-                    },
-                })
-                .getResponse();
-    }
-}
-
-const StartSessionSuccessViewHandler = {
-    canHandle(handlerInput){
-        return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'StartSessionSuccessView';
-    },
-    handle(handlerInput){
-       console.log('IntroToAlexaConversationsTempEventHandler')
-       return handlerInput.responseBuilder
-                .addDirective({
-                    type: 'Dialog.DelegateRequest',
-                    target: 'AMAZON.Conversations',
-                    period: {
-                        until: 'EXPLICIT_RETURN' 
-                    },
-                })
-                .getResponse();
-    }
-}
-
-const EndSessionVisualViewHandler = {
-    canHandle(handlerInput){
-        return handlerInput.requestEnvelope.request.type === 'LaunchRequest' && handlerInput.requestEnvelope.request.arguments[0] === 'EndSessionVisualView';
-    },
-    handle(handlerInput){
-       console.log('IntroToAlexaConversationsTempEventHandler')
-       return handlerInput.responseBuilder
-                .addDirective({
-                    type: 'Dialog.DelegateRequest',
-                    target: 'AMAZON.Conversations',
-                    period: {
-                        until: 'EXPLICIT_RETURN' 
-                    },
-                })
-                .getResponse();
-    }
-}
-
-/**
- * API Handler for GetFavoriteColor API
- * 
- * @param handlerInput
- * @returns API response object 
- * 
- * See https://developer.amazon.com/en-US/docs/alexa/conversations/handle-api-calls.html
- */
-// const GetFavoriteColorApiHandler = {
-//     canHandle(handlerInput) {
-//         return util.isApiRequest(handlerInput, 'GetFavoriteColor');
-//     },
-//     handle(handlerInput) {
-//         console.log("Api Request [GetFavoriteColor]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
+    // async handle(handlerInput) {
+    //     console.log("Api Request [ProvideFeedback]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
+    //     let feedback = 'no input'
+    //     try {
+    //         if (handlerInput.requestEnvelope.request.apiRequest.input) {
+    //           console.log("Api Request [ProvideFeedback] Inpurt: ", handlerInput.requestEnvelope.request.apiRequest.input);
+    //           feedback = handlerInput.requestEnvelope.request.apiRequest.input
+    //         }
+    //     } catch(e) {
+    //         console.log("Api Request [ProvideFeedback] Inpurt: ", e);
+    //     }
         
-//         // Get the favorite color from the session
-//         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-//         if (sessionAttributes.favoriteColor){
-//             var color = sessionAttributes.favoriteColor;
-//         }
-//         let response = {
-//             apiResponse: {
-//                 color : color
-//             }
-//         };
+    //     let db = firebase.database();
+    //     let ref = db.ref('Alexa/Feedback');
         
-//         console.log("Api Response [GetFavoriteColor]: ", JSON.stringify(response, null, 2));
-//         return response;
-//     }
-// }
+    //     // console.log("db", db);
+    //     const result = await ref.set(JSON.stringify(feedback));
+    //     db.goOffline();
+        
+    //     let response = {
+    //         apiResponse: 0
+    //     };
+
+    //     console.log("Api Response [ProvideFeedback]: ", JSON.stringify(response, null, 2));
+    //     return response;
+    // }
+}
+
+
+
+// IntroduceCOCO
+const IntroduceCOCOApiHandler = {
+    canHandle(handlerInput) {
+        return util.isApiRequest(handlerInput, 'IntroduceCOCO');
+    },
+    handle(handlerInput) {
+        console.log("Api Request [IntroduceCOCO]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
+        let response = {
+            apiResponse: 0
+        };
+        console.log("Api Response [IntroduceCOCO]: ", JSON.stringify(response, null, 2));
+        return response;
+    }
+}
+
+// NotFriendlyAPI
+const NotFriendlyAPIApiHandler = {
+    canHandle(handlerInput) {
+        return util.isApiRequest(handlerInput, 'NotFriendlyAPI');
+    },
+    handle(handlerInput) {
+        console.log("Api Request [NotFriendlyAPI]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
+        let response = {
+            apiResponse: 0
+        };
+        console.log("Api Response [NotFriendlyAPI]: ", JSON.stringify(response, null, 2));
+        return response;
+    }
+}
+
+// NoHumanAPI
+const NoHumanAPIAPIApiHandler = {
+    canHandle(handlerInput) {
+        return util.isApiRequest(handlerInput, 'NoHumanAPI');
+    },
+    handle(handlerInput) {
+        console.log("Api Request [NoHumanAPI]: ", JSON.stringify(handlerInput.requestEnvelope.request, null, 2));
+        let response = {
+            apiResponse: 0
+        };
+        console.log("Api Response [NoHumanAPI]: ", JSON.stringify(response, null, 2));
+        return response;
+    }
+}
+
+
 /**
  * FallbackIntentHandler - Handle all other requests to the skill 
  * 
@@ -440,7 +387,9 @@ const FallbackIntentHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'Dialog.API.Invoked'
                 && request.apiRequest.name !== 'StartSessionApiHandler' && request.apiRequest.name !== 'PlaySessionAudioeApiHandler'
                 && request.apiRequest.name !== 'RecordRatingApiHandler' && request.apiRequest.name !== 'ProvideFeedbackApiHandler'
-                && request.apiRequest.name !== 'TryOthersApiHandler' && request.apiRequest.name !== 'GetInitialInformationApiHandler';
+                && request.apiRequest.name !== 'TryOthersApiHandler' && request.apiRequest.name !== 'GetInitialInformationApiHandler'
+                && request.apiRequest.name !== 'IntroduceCOCOApiHandler' && request.apiRequest.name !== 'NotFriendlyAPIApiHandler'
+                && request.apiRequest.name !== 'NoHumanAPIAPIApiHandler';
     },
     handle(handlerInput) {
         const intentName = handlerInput.requestEnvelope.request.intent.name;
@@ -503,20 +452,16 @@ exports.handler = Alexa.SkillBuilders.custom()
     .addRequestInterceptors(LogRequestInterceptor)
     .addResponseInterceptors(LogResponseInterceptor)
     .addRequestHandlers(
-        // RecordColorApiHandler,
-        // GetFavoriteColorApiHandler,
-        // IntroToAlexaConversationsButtonEventHandler,
         GetInitialInformationApiHandler,
         StartSessionApiHandler,
         PlaySessionAudioeApiHandler,
         RecordRatingApiHandler,
         ProvideFeedbackApiHandler,
         TryOthersApiHandler,
+        IntroduceCOCOApiHandler,
+        NotFriendlyAPIApiHandler,
+        NoHumanAPIAPIApiHandler,
         FallbackIntentHandler,
-        // IntroToAlexaConversationsTempEventHandler,
-        WelcomeVisualTempHandler,
-        StartSessionSuccessViewHandler,
-        EndSessionVisualViewHandler,
         SessionEndedRequestHandler
     )
     .withCustomUserAgent('reference-skills/intro-to-alexa-conversations/v1')
